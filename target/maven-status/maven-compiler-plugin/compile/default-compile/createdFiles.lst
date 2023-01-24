@@ -1,1 +1,5 @@
+Entities\loan.class
+Entities\transactions.class
 main.class
+Entities\bank_account.class
+Entities\customer.class
