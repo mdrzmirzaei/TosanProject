@@ -1,17 +1,19 @@
 package DB;
 
-import javax.sql.RowSet;
+
+
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetFactory;
 import javax.sql.rowset.RowSetProvider;
-import java.sql.SQLException;
+
+
 
 public class DBmanager {
     private final String URL = "jdbc:mysql://localhost:3306/corebanking";
-
     public void DB_PoolConnection() {
 
         try {
+
             RowSetFactory factory = RowSetProvider.newFactory();
 
 
@@ -19,6 +21,7 @@ public class DBmanager {
 cachedRowSet.setUrl(URL);
 cachedRowSet.setUsername("admin_cb");
 cachedRowSet.setPassword("cb");
+
 cachedRowSet.setCommand("select * from customer");
 cachedRowSet.execute();
 
@@ -32,6 +35,12 @@ while (cachedRowSet.next()){
         } catch (Exception se) {
             System.out.println(se.getMessage());
         }
+
+
+
+
+
+
     }
 
 
