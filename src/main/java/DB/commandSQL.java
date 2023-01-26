@@ -6,6 +6,7 @@ import javax.sql.rowset.CachedRowSet;
 import java.sql.SQLException;
 
 public class commandSQL {
+
 public CachedRowSet cachedRowSet=null;
 
 
@@ -37,6 +38,25 @@ public void select_cmd (){
     catch (SQLException se){
         System.out.println(se.getMessage());
     }
+}
+
+public  void insert_cmd(String table_name,String columns, String values){
+try {
+    cachedRowSet.setCommand("insert into ? ( ? ) values ( ? )");
+    cachedRowSet.setString(1,table_name);
+    cachedRowSet.setString(2,columns);
+    cachedRowSet.setString(3,values);
+    System.out.println(cachedRowSet.getCommand());
+    cachedRowSet.execute();
+    cachedRowSet.commit();
+    System.out.println("اطلاعات مشتری با موفقیت ذخیره گردید");
+
+}
+catch (SQLException se){
+    System.out.println(se.getMessage());
+    System.out.println("عملیات موفق آمیز نبود");
+}
+
 }
 
 

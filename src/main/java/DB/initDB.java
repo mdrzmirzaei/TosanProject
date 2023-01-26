@@ -6,7 +6,7 @@ import javax.sql.rowset.RowSetProvider;
 import java.sql.*;
 
 public abstract class initDB {
-    public static CachedRowSet cachedRowSet = null;
+    private static CachedRowSet cachedRowSet = null;
     private static connectionPool cp = new connectionPool("jdbc:mysql://localhost:3306/corebanking", "admin_cb", "cb");
     private static PreparedStatement preparedStatement=null;
 
