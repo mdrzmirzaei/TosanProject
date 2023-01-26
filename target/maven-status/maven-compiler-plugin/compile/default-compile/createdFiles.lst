@@ -1,5 +1,7 @@
 Entities\loan.class
-Entities\transactions.class
 main.class
-Entities\bank_account.class
 Entities\customer.class
+DB\initDB.class
+DB\connectionPool.class
+Entities\transactions.class
+Entities\bank_account.class
