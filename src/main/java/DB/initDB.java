@@ -3,21 +3,18 @@ package DB;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetFactory;
 import javax.sql.rowset.RowSetProvider;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 
-public class initDB {
-    private connectionPool cp = null;
-    public CachedRowSet crowSet = null;
+public abstract class initDB {
+    public static CachedRowSet cachedRowSet = null;
+    private static connectionPool cp = new connectionPool("jdbc:mysql://localhost:3306/corebanking", "admin_cb", "cb");
+    private static PreparedStatement preparedStatement=null;
 
-
-    public Connection ConnectOk() {
+    public static Connection ConnectOk() {
 
         try {
-            cp = new connectionPool("jdbc:mysql://localhost:3306/corebanking", "admin_cb", "cb");
             cp.createConneciton();
 
-            return cp.getConnection();
 
         } catch (SQLException se) {
             System.out.println("امکان ایجاد استخر ارتباط وجود ندارد");
@@ -28,36 +25,38 @@ public class initDB {
     }
 
 
-    public CachedRowSet initCachedRowset() {
+    public static CachedRowSet initCachedRowset() {
         try {
             RowSetFactory rowSetFactory = RowSetProvider.newFactory();
-            this.crowSet = rowSetFactory.createCachedRowSet();
-            crowSet.setUrl(cp.getUrl());
-            crowSet.setUsername(cp.getUser());
-            crowSet.setPassword(cp.getPassword());
-            return crowSet;
+            cachedRowSet = rowSetFactory.createCachedRowSet();
+            cachedRowSet.setUrl(cp.getUrl());
+            cachedRowSet.setUsername(cp.getUser());
+            cachedRowSet.setPassword(cp.getPassword());
         } catch (SQLException se) {
             System.out.println("اطلاعات برای استفاده از کافی نیست!!");
             System.out.println(se.getMessage());
         }
-        return crowSet;
+        return cachedRowSet;
     }
 
 
-    public CachedRowSet initCommand(String cmd) {
+
+/*
+    public static CachedRowSet initCommand(String cmd) {
         try {
 
-            this.crowSet.setCommand(cmd);
-            this.crowSet.execute();
+            cachedRowSet.setCommand(cmd);
+            cachedRowSet.execute();
 
-            return this.crowSet;
+            return cachedRowSet;
 
         } catch (SQLException se) {
             System.out.println(se.getMessage());
         }
 
-        return this.crowSet;
+        return cachedRowSet;
     }
 
+*/
 
 }

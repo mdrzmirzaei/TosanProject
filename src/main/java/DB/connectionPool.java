@@ -20,14 +20,19 @@ public class connectionPool {
      * @author Mirza
      */
 
-    public connectionPool(String url, String user, String password) throws SQLException {
+    public connectionPool(String url, String user, String password)  {
+        try {
         this.url = url;
         this.user = user;
         this.password = password;
 
         for (int count = 0; count < max_conneciton; count++) {
             availabeConnecitons.add(this.createConneciton());
-        }
+        }}
+        catch (SQLException se){
+            System.out.println(se.getMessage());
+            }
+
     }
 
     /**
@@ -79,5 +84,14 @@ public class connectionPool {
     }
 
 
+    /**
+     * finalize the lists of connections
+     * @throws Throwable
+     */
+    protected void finalize() throws Throwable{
+        availabeConnecitons.clear();
+        usedConnecitons.clear();
+
+}
 }
 
