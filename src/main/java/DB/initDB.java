@@ -8,7 +8,6 @@ import java.sql.*;
 public abstract class initDB {
     private static CachedRowSet cachedRowSet = null;
     private static connectionPool cp = new connectionPool("jdbc:mysql://localhost:3306/corebanking", "admin_cb", "cb");
-    private static PreparedStatement preparedStatement=null;
 
     public static Connection ConnectOk() {
 
@@ -39,11 +38,18 @@ public abstract class initDB {
         return cachedRowSet;
     }
 
+    public  static void  releaseDB(){
+        try{
+            cp.releaseConnection(initDB.ConnectOk());
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 /*
-    public static Statement initCachedRowset() {
+    public static Statement initStatement() {
         try {
-            RowSetFactory rowSetFactory = RowSetProvider.newFactory();
-            cachedRowSet = rowSetFactory.createCachedRowSet();
+            Statement statement=
             cachedRowSet.setUrl(cp.getUrl());
             cachedRowSet.setUsername(cp.getUser());
             cachedRowSet.setPassword(cp.getPassword());
@@ -53,9 +59,9 @@ public abstract class initDB {
         }
         return cachedRowSet;
     }
+*/
 
 
- */
 
 
 /*

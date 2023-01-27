@@ -8,16 +8,19 @@ import java.util.Objects;
 
 public class main {
     public static void main(String[] args) {
-
+        customerManage ctm=new customerManage();
         try {
 
             userLogin.login();
            users activeUser=userLogin.getUser();
            if (Objects.equals(activeUser.getKou(), "E")){
                System.out.println("please enter new customer data");
-               customerManage ctm=new customerManage();
+
                ctm.insertCustomer();
            }
+
+
+
 
 
 
