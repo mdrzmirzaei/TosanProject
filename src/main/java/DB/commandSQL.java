@@ -2,13 +2,16 @@ package DB;
 
 import javax.sql.rowset.CachedRowSet;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class commandSQL {
 
-    public CachedRowSet cachedRowSet = null;
+    private CachedRowSet cachedRowSet = null;
+    private PreparedStatement preparedStatement=null;
 
 
     public commandSQL() {
@@ -18,21 +21,42 @@ public class commandSQL {
     }
 
 
-    public void select_cmd() {
+    public void select_cmd(String tableName) {
         try {
-            cachedRowSet.setCommand("select * from customer");
-            cachedRowSet.execute();
-            while (cachedRowSet.next()) {
-                System.out.println(cachedRowSet.getString(2));
+            preparedStatement=initDB.ConnectOk().prepareStatement("select * from " + tableName );
+           ResultSet rs= preparedStatement.executeQuery();
+            //to get information about table
+            ResultSetMetaData RST = rs.getMetaData();
+
+        while (rs.next()) {
+                for (int i = 1; i < RST.getColumnCount(); i++) {
+                    System.out.print(rs.getString(i) + "   ");
+                }
+                System.out.println("__");
             }
 
-            initDB.ConnectOk();
-            CachedRowSet crs = null;
-            crs = initDB.initCachedRowset();
-            crs.setCommand("select * from customer where customer_name='samin'");
-            crs.execute();
-            while (crs.next()) {
-                System.out.println(crs.getString(1) + "             " + crs.getString(2) + "_" + crs.getString(3));
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+        }
+    }
+
+    public void select_cmd(String tableName, String columnName,String condition, String value) {
+        try {
+            preparedStatement = initDB.ConnectOk().prepareStatement("select * from " + tableName + " where " + columnName + " " + condition + " ?");
+            if (columnName.contains("id")) {
+                preparedStatement.setInt(1, Integer.valueOf(value));
+            } else {
+                preparedStatement.setString(1, value);
+            }
+            ResultSet rs= preparedStatement.executeQuery();
+            //to get information about table
+            ResultSetMetaData RST = rs.getMetaData();
+
+            while (rs.next()) {
+                for (int i = 1; i < RST.getColumnCount(); i++) {
+                    System.out.print(rs.getString(i) + "   ");
+                }
+                System.out.println("__");
             }
         } catch (SQLException se) {
             System.out.println(se.getMessage());
@@ -44,25 +68,12 @@ public class commandSQL {
         try {
 
             for (Map.Entry<String, String> cc : cv.entrySet()) {
-
                 inserintoDB.append(cc.getKey().toString() + ",");
-
             }
 
             //inserintoDB.deleteCharAt(inserintoDB.lastIndexOf(","));
-
-            System.out.println(inserintoDB.length());
-            System.out.println(inserintoDB.length()-1);
-            inserintoDB.delete(inserintoDB.length()-1,inserintoDB.length());
-
-            /*for (int i = 0; i < cv.size(); i++) {
-                inserintoDB.append(cv.get("key").toString());
-
-            }
-            */
+            inserintoDB.delete(inserintoDB.length() - 1, inserintoDB.length());
             inserintoDB.append(")  values (?,?,?)");
-            System.out.println(inserintoDB.toString());
-
 
             PreparedStatement preparedStatement = initDB.ConnectOk().prepareStatement(inserintoDB.toString());
             int i = 1;
@@ -72,9 +83,8 @@ public class commandSQL {
                 i++;
             }
 
-            String s = preparedStatement.toString();
             preparedStatement.executeUpdate();
-
+            System.out.println("the operation was Done, Customer is added in database");
 
         } catch (SQLException se) {
             System.out.println(se.getMessage());
@@ -86,6 +96,16 @@ public class commandSQL {
         }
 
     }
+
+/*
+    initDB.ConnectOk();
+    CachedRowSet crs = null;
+    crs = initDB.initCachedRowset();
+            crs.setCommand("select * from customer where customer_name='samin'");
+            crs.execute();
+            while (crs.next()) {
+        System.out.println(crs.getString(1) + "             " + crs.getString(2) + "_" + crs.getString(3));
+        */
 
 
 }
