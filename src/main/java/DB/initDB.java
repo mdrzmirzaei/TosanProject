@@ -39,6 +39,23 @@ public abstract class initDB {
         return cachedRowSet;
     }
 
+/*
+    public static Statement initCachedRowset() {
+        try {
+            RowSetFactory rowSetFactory = RowSetProvider.newFactory();
+            cachedRowSet = rowSetFactory.createCachedRowSet();
+            cachedRowSet.setUrl(cp.getUrl());
+            cachedRowSet.setUsername(cp.getUser());
+            cachedRowSet.setPassword(cp.getPassword());
+        } catch (SQLException se) {
+            System.out.println("اطلاعات برای استفاده از کافی نیست!!");
+            System.out.println(se.getMessage());
+        }
+        return cachedRowSet;
+    }
+
+
+ */
 
 
 /*
