@@ -8,6 +8,15 @@
     <artifactId>TosanProject</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.24</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -47,6 +56,8 @@
             </plugins>
         </pluginManagement>
     </build>
+
+
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
