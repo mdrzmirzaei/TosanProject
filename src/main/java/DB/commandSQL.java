@@ -1,17 +1,21 @@
 package DB;
 
+import Entities.customer;
+
 import javax.sql.rowset.CachedRowSet;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class commandSQL {
 
+    Scanner scanner = new Scanner(System.in);
+    ArrayList<customer> CustomerArray = new ArrayList<customer>();
     private CachedRowSet cachedRowSet = null;
-    private PreparedStatement preparedStatement=null;
 
 
     public commandSQL() {
@@ -21,16 +25,17 @@ public class commandSQL {
     }
 
 
-    public void select_cmd(String tableName) {
+    public ArrayList<customer> select_cmd(String tableName) {
         try {
-            preparedStatement=initDB.ConnectOk().prepareStatement("select * from " + tableName );
-           ResultSet rs= preparedStatement.executeQuery();
+            cachedRowSet.setCommand("select * from " + tableName);
+            cachedRowSet.execute();
             //to get information about table
-            ResultSetMetaData RST = rs.getMetaData();
-
-        while (rs.next()) {
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
+            while (cachedRowSet.next()) {
+                CustomerArray.add(new customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
                 for (int i = 1; i < RST.getColumnCount(); i++) {
-                    System.out.print(rs.getString(i) + "   ");
+                    System.out.print(cachedRowSet.getString(i) + "   ");
+
                 }
                 System.out.println("__");
             }
@@ -38,29 +43,35 @@ public class commandSQL {
         } catch (SQLException se) {
             System.out.println(se.getMessage());
         }
+        return CustomerArray;
+
     }
 
-    public void select_cmd(String tableName, String columnName,String condition, String value) {
+    public ArrayList<customer> select_cmd(String tableName, String columnName, String condition, String value) {
         try {
-            preparedStatement = initDB.ConnectOk().prepareStatement("select * from " + tableName + " where " + columnName + " " + condition + " ?");
-            if (columnName.contains("id")) {
-                preparedStatement.setInt(1, Integer.valueOf(value));
-            } else {
-                preparedStatement.setString(1, value);
-            }
-            ResultSet rs= preparedStatement.executeQuery();
-            //to get information about table
-            ResultSetMetaData RST = rs.getMetaData();
 
-            while (rs.next()) {
+            cachedRowSet.setCommand("select * from " + tableName + " where " + columnName + " " + condition + " ?");
+            if (columnName.contains("id")) {
+                cachedRowSet.setInt(1, Integer.valueOf(value));
+            } else {
+                cachedRowSet.setString(1, value);
+            }
+            cachedRowSet.execute();
+            //to get information about table
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
+            while (cachedRowSet.next()) {
+                CustomerArray.add(new customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
                 for (int i = 1; i < RST.getColumnCount(); i++) {
-                    System.out.print(rs.getString(i) + "   ");
+                    System.out.print(cachedRowSet.getString(i) + "   ");
                 }
                 System.out.println("__");
             }
+
         } catch (SQLException se) {
             System.out.println(se.getMessage());
         }
+        return CustomerArray;
+
     }
 
     public void insert_cmd(String table_name, HashMap<String, String> cv) {
@@ -75,20 +86,20 @@ public class commandSQL {
             inserintoDB.delete(inserintoDB.length() - 1, inserintoDB.length());
             inserintoDB.append(")  values (?,?,?)");
 
-            PreparedStatement preparedStatement = initDB.ConnectOk().prepareStatement(inserintoDB.toString());
+            cachedRowSet.setCommand(inserintoDB.toString());
             int i = 1;
             for (Map.Entry<String, String> cc : cv.entrySet()) {
 
-                preparedStatement.setString(i, cc.getValue());
+                cachedRowSet.setString(i, cc.getValue());
                 i++;
             }
 
-            preparedStatement.executeUpdate();
+            cachedRowSet.execute();
             System.out.println("the operation was Done, Customer is added in database");
 
         } catch (SQLException se) {
             System.out.println(se.getMessage());
-            System.out.println(se.fillInStackTrace());
+            System.out.println(se.getStackTrace());
 
             System.out.println("عملیات موفق آمیز نبود");
         } finally {
@@ -96,6 +107,55 @@ public class commandSQL {
         }
 
     }
+
+    public void update_cmd(String tableName, int id, HashMap<String, String> ColVal) {
+        ArrayList<customer> selectedRow = new ArrayList<>();
+
+        try {
+            String columnId = (tableName == "customer" ? "idCustomer" : "idLoan");
+            System.out.println("please enter id : ");
+            id = scanner.nextInt();
+            StringBuilder Query = new StringBuilder("UPDATE " + tableName + " set ");
+
+            int i=1;
+            for (Map.Entry<String, String> entry : ColVal.entrySet()
+
+
+            ) {
+                Query.append(entry.getKey()+"= ? , ");
+                i+=2;
+            }
+
+            Query.delete(Query.length() - 2, Query.length());
+            //selectedRow = select_cmd(tableName, columnName, "=", String.valueOf(id));
+            Query.append(" where " + columnId + " = " + String.valueOf(id));
+
+            cachedRowSet.setCommand(Query.toString());
+            i=1;
+            for (Map.Entry<String, String> entry : ColVal.entrySet()
+
+
+            ) {
+               cachedRowSet.setString(i, entry.getValue());
+                i++;
+            }
+
+
+
+            System.out.println(Query.toString());
+
+            cachedRowSet.execute();
+            System.out.println("ویرایش با موفقیت انجام شد");
+
+        } catch (SQLException se) {
+            se.getMessage();
+            System.out.println("امکان انجام ویرایش وجود ندارد!!!!");
+        }
+
+    }
+
+
+
 
 /*
     initDB.ConnectOk();
