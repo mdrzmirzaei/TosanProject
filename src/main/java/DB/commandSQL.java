@@ -3,7 +3,6 @@ package DB;
 import Entities.customer;
 
 import javax.sql.rowset.CachedRowSet;
-import java.sql.PreparedStatement;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -74,8 +73,8 @@ public class commandSQL {
 
     }
 
-    public void insert_cmd(String table_name, HashMap<String, String> cv) {
-        StringBuilder inserintoDB = new StringBuilder("insert into corebanking." + table_name + " (");
+    public void insert_cmd(String tableName, HashMap<String, String> cv) {
+        StringBuilder inserintoDB = new StringBuilder("insert into corebanking." + tableName + " (");
         try {
 
             for (Map.Entry<String, String> cc : cv.entrySet()) {
@@ -117,13 +116,11 @@ public class commandSQL {
             id = scanner.nextInt();
             StringBuilder Query = new StringBuilder("UPDATE " + tableName + " set ");
 
-            int i=1;
+            int i = 1;
             for (Map.Entry<String, String> entry : ColVal.entrySet()
-
-
             ) {
-                Query.append(entry.getKey()+"= ? , ");
-                i+=2;
+                Query.append(entry.getKey() + "= ? , ");
+                i += 2;
             }
 
             Query.delete(Query.length() - 2, Query.length());
@@ -131,18 +128,13 @@ public class commandSQL {
             Query.append(" where " + columnId + " = " + String.valueOf(id));
 
             cachedRowSet.setCommand(Query.toString());
-            i=1;
+            i = 1;
             for (Map.Entry<String, String> entry : ColVal.entrySet()
 
-
             ) {
-               cachedRowSet.setString(i, entry.getValue());
+                cachedRowSet.setString(i, entry.getValue());
                 i++;
             }
-
-
-
-            System.out.println(Query.toString());
 
             cachedRowSet.execute();
             System.out.println("ویرایش با موفقیت انجام شد");
@@ -155,6 +147,37 @@ public class commandSQL {
     }
 
 
+    public void delete_cmd(String tableName, HashMap<String, String> colval) {
+        StringBuilder delFromDB = new StringBuilder("DELETE from corebanking." + tableName +" where ");
+        String columnId = (tableName == "customer" ? "idCustomer" : "idLoan");
+        try {
+            for (Map.Entry<String, String> cc : colval.entrySet()) {
+                delFromDB.append(cc.getKey().toString() + " = ? and ");
+            }
+
+            //inserintoDB.deleteCharAt(inserintoDB.lastIndexOf(","));
+            delFromDB.delete(delFromDB.length() - 4, delFromDB.length());
+            cachedRowSet.setCommand(delFromDB.toString());
+            int i = 1;
+            for (Map.Entry<String, String> cc : colval.entrySet()) {
+
+                cachedRowSet.setString(i, cc.getValue());
+                i++;
+            }
+
+            cachedRowSet.execute();
+            System.out.println("اطلاعات مشتری مورد نظر شما حذف گردید!");
+
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+            System.out.println(se.getStackTrace());
+
+            System.out.println("عملیات  حذف مشتری موفق آمیز نبود");
+        } finally {
+            initDB.releaseDB();
+        }
+
+    }
 
 
 /*

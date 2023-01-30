@@ -50,14 +50,19 @@ public abstract class userLogin {
                 System.out.println(user.getName() + "  " + user.getFamily() + "   " + user.getKou());
 
 
-                return true;
             }
 
         } catch (SQLException se) {
             System.out.println(se.getMessage());
             System.out.println("user not found");
         }
+        finally {
+
+            initDB.releaseDB();
+        }
+
         return true;
+
 
     }
 

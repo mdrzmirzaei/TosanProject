@@ -27,7 +27,7 @@ public class connectionPool {
         this.password = password;
 
         for (int count = 0; count < max_conneciton; count++) {
-            availabeConnecitons.add(this.createConneciton());
+            availabeConnecitons.add(this.createConnection());
         }}
         catch (SQLException se){
             System.out.println(se.getMessage());
@@ -40,7 +40,7 @@ public class connectionPool {
      * used by the Pool to create new connection internally
      **/
 
-    public Connection createConneciton() throws SQLException {
+    public Connection createConnection() throws SQLException {
         return DriverManager.getConnection(this.url, this.user, this.password);
     }
 
@@ -64,9 +64,22 @@ public class connectionPool {
      **/
     public boolean releaseConnection(Connection con) {
         if (con != null) {
-            usedConnecitons.remove(con);
-            availabeConnecitons.add(con);
-            return true;
+          try {
+              usedConnecitons.remove(con);
+              availabeConnecitons.add(con);
+          }
+          catch (Exception e){
+              System.out.println(e.getMessage());
+          }
+          finally {
+              try {
+                  usedConnecitons.remove(con);
+                  availabeConnecitons.add(con);
+              }
+              catch (Exception e){
+                  System.out.println(e.getMessage());
+              }
+          }
         }
         return true;
     }

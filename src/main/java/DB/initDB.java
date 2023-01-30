@@ -12,7 +12,7 @@ public abstract class initDB {
     public static Connection ConnectOk() {
 
         try {
-            cp.createConneciton();
+            cp.createConnection();
 
 
         } catch (SQLException se) {
