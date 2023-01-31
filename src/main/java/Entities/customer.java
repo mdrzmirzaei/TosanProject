@@ -13,6 +13,10 @@ public class customer {
         this.customer_address = customer_address;
     }
 
+    public customer() {
+
+    }
+
     public int getIdCustomer() {
         return idCustomer;
     }

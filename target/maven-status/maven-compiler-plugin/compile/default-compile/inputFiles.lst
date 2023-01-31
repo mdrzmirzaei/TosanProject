@@ -1,7 +1,12 @@
+C:\Projects\TosanProject\src\main\java\DB\commandSQL.java
 C:\Projects\TosanProject\src\main\java\Entities\bank_account.java
 C:\Projects\TosanProject\src\main\java\Entities\loan.java
 C:\Projects\TosanProject\src\main\java\Entities\customer.java
+C:\Projects\TosanProject\src\main\java\customerManager\customerManage.java
+C:\Projects\TosanProject\src\main\java\Entities\users.java
 C:\Projects\TosanProject\src\main\java\Entities\transactions.java
 C:\Projects\TosanProject\src\main\java\DB\connectionPool.java
+C:\Projects\TosanProject\src\main\java\DB\userLogin.java
 C:\Projects\TosanProject\src\main\java\DB\initDB.java
+C:\Projects\TosanProject\src\main\java\DB\tables.java
 C:\Projects\TosanProject\src\main\java\main.java

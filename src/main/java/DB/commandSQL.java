@@ -83,7 +83,13 @@ public class commandSQL {
 
             //inserintoDB.deleteCharAt(inserintoDB.lastIndexOf(","));
             inserintoDB.delete(inserintoDB.length() - 1, inserintoDB.length());
-            inserintoDB.append(")  values (?,?,?)");
+            inserintoDB.append(")  values (");
+            for (int i = 0; i <cv.size() ; i++) {
+                inserintoDB.append("? , ");
+            }
+            inserintoDB.delete(inserintoDB.length()-2,inserintoDB.length());
+            inserintoDB.append(" )");
+
 
             cachedRowSet.setCommand(inserintoDB.toString());
             int i = 1;
