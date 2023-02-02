@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class connectionPool {
+public class connectionPool implements  AutoCloseable{
     private final int max_conneciton = 5;
     private List<Connection> availabeConnecitons = new ArrayList<Connection>();
     private List<Connection> usedConnecitons = new ArrayList<Connection>();
@@ -97,14 +97,18 @@ public class connectionPool {
     }
 
 
-    /**
-     * finalize the lists of connections
-     * @throws Throwable
-     */
-    protected void finalize() throws Throwable{
-        availabeConnecitons.clear();
-        usedConnecitons.clear();
-
-}
+    @Override
+    public void close()  {
+        try {
+            usedConnecitons.clear();
+            availabeConnecitons.clear();
+            createConnection().close();
+        }
+        catch (Exception e)
+        {
+            e.getMessage();
+            System.out.println("i can not close connections");
+        }
+    }
 }
 

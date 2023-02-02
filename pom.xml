@@ -8,11 +8,6 @@
     <artifactId>TosanProject</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>DatabaseManager</module>
-        <module>CoreBanking</module>
-        <module>Loan</module>
-    </modules>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -22,20 +17,21 @@
             <version>8.0.24</version>
         </dependency>
         <dependency>
-            <groupId>groupId</groupId>
-            <artifactId>Loan</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>groupId</groupId>
+            <groupId>org.example</groupId>
             <artifactId>DatabaseManager</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>groupId</groupId>
+            <groupId>org.example</groupId>
+            <artifactId>Loan</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
             <artifactId>CoreBanking</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <build>

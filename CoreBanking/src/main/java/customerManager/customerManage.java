@@ -2,7 +2,6 @@ package customerManager;
 
 import DB.commandSQL;
 import Entities.customer;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -10,12 +9,14 @@ import java.util.Scanner;
 
 public class customerManage {
 
+
     public ArrayList<customer> CustomerArray = new ArrayList<customer>();
     commandSQL cmd = new commandSQL();
     private Scanner scanner = new Scanner(System.in);
     private String c_name;
     private String c_family;
     private String c_address;
+
 
 
     public customerManage(ArrayList<customer> customerArray) {

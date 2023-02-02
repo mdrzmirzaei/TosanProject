@@ -1,7 +1,6 @@
 package DB;
 
 import Entities.customer;
-
 import javax.sql.rowset.CachedRowSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -10,7 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+
 public class commandSQL {
+customer customer=new customer();
 
     Scanner scanner = new Scanner(System.in);
     ArrayList<customer> CustomerArray = new ArrayList<customer>();

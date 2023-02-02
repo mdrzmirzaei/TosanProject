@@ -1,5 +1,11 @@
+
+import DB.tables;
+
+
 public class main {
     public static void main(String[] args) {
-        System.out.println("program is start :");
+
+tables rb=new tables();
+        System.out.println();
     }
 }
