@@ -1,5 +1,3 @@
-package Entities;
-
 public class loan {
     private int idloan;
     private long loan_principle_amount;
