@@ -37,13 +37,6 @@ public class tables {
             this.currencySymbol=currencySymbol;
 
         }
-        public final char getCurrencySymbol() {
-            return this.currencySymbol;
-        }
-
-
-
-
 
     }
 
