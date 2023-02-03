@@ -12,8 +12,7 @@ public class customer {
         this.customer_family = customer_family;
         this.customer_address = customer_address;
     }
-
-    public customer() {
+        public customer() {
 
     }
 

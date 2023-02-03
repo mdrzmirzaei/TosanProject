@@ -1,13 +1,17 @@
 import DB.commandSQL;
-import customersANDaccounts.bankAccountManager;
 
-import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.util.Scanner;
 
 public class main {
 
     public static void main(String[] args) {
-bankAccountManager bam=new bankAccountManager();
-bam.deposit();
+     /*   loanRequest LR = new loanRequest();
+        System.out.println("please enter your amount of loan");
+        Scanner s = new Scanner(System.in);
+        LR.acceptRequet(s.nextBigDecimal(), 25);
+      */
+
 
     }
 }

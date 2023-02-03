@@ -8,6 +8,7 @@ public class bank_account {
     private char kind_of_currency;
     private int idcustomer_bank_acount;
 
+
     public bank_account(int idbank_acocunt, BigDecimal bank_account_balance, char kind_of_currency, int idcustomer_bank_acount) {
         this.idbank_acocunt = idbank_acocunt;
         this.bank_account_balance = bank_account_balance;
@@ -15,6 +16,7 @@ public class bank_account {
         this.idcustomer_bank_acount= idcustomer_bank_acount;
 
     }
+
 
     public void setBank_account_balance(BigDecimal bank_account_balance) {
         this.bank_account_balance = bank_account_balance;

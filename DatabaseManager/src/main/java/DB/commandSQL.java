@@ -4,7 +4,6 @@ import Entities.bank_account;
 import Entities.customer;
 
 import javax.sql.rowset.CachedRowSet;
-import java.lang.reflect.Field;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-public class commandSQL<T> {
+public class commandSQL {
 
     customer customer = new customer();
     Scanner scanner = new Scanner(System.in);
@@ -57,6 +56,30 @@ public class commandSQL<T> {
 //        return customerArray;
 //
 //    }
+
+    public boolean select_financial(String tableName, String columnName, String condition, String value) {
+        try {
+
+            cachedRowSet.setCommand("select * from " + tableName + " where " + columnName + " " + condition + " ?");
+            if (columnName.contains("id")) {
+                cachedRowSet.setInt(1, Integer.valueOf(value));
+            } else {
+                cachedRowSet.setString(1, value);
+            }
+            cachedRowSet.execute();
+            //to get information about table
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
+            if (cachedRowSet.next()) {
+                return true;
+            }
+
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+        }
+        return false;
+
+    }
+
 
     public ArrayList<customer> select_cmd(String tableName, String columnName, String condition, String value) {
         try {
@@ -235,7 +258,21 @@ public class commandSQL<T> {
 
     public void delete_cmd(String tableName, HashMap<String, String> colval) {
         StringBuilder delFromDB = new StringBuilder("DELETE from corebanking." + tableName + " where ");
-        String columnId = (tableName == "customer" ? "idCustomer" : "idLoan");
+        String columnId = "";
+        switch (tableName) {
+            case "customer": {
+                columnId = "idCustomer";
+                break;
+            }
+            case "Loan": {
+                columnId = "idLoan";
+                break;
+            }
+            case "bank_account": {
+                columnId = "idbank_account";
+                break;
+            }
+        }
         try {
             for (Map.Entry<String, String> cc : colval.entrySet()) {
                 delFromDB.append(cc.getKey().toString() + " = ? and ");
@@ -266,6 +303,11 @@ public class commandSQL<T> {
     }
 
 
+}
+
+
+
+
 /*
     initDB.ConnectOk();
     CachedRowSet crs = null;
@@ -277,4 +319,4 @@ public class commandSQL<T> {
         */
 
 
-}
+
