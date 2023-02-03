@@ -4,6 +4,7 @@ import Entities.bank_account;
 import Entities.customer;
 
 import javax.sql.rowset.CachedRowSet;
+import java.lang.reflect.Field;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-public class commandSQL {
+public class commandSQL<T> {
 
     customer customer = new customer();
     Scanner scanner = new Scanner(System.in);
@@ -27,16 +28,21 @@ public class commandSQL {
 
     }
 
-//    public ArrayList<customer> select_cmd(String tableName) {
+
+//    public <T> List<T> select_cmd(String tableName) {
+//ArrayList<T> tt=new ArrayList<T>();
+//
+//
 //
 //        try {
-//           cachedRowSet.setCommand("select * from " + tableName);
+//            cachedRowSet.setCommand("select * from " + tableName);
 //            cachedRowSet.execute();
 //            //to get information about table
 //            ResultSetMetaData RST = cachedRowSet.getMetaData();
 //
 //            while (cachedRowSet.next()) {
-//                customerArray.add(new customer(cachedRowSet.getInt(1),cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4))) ;
+//                tt.add(1,new T());
+//                customerArray.add(new customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
 //                for (int i = 1; i < RST.getColumnCount(); i++) {
 //                    System.out.print(cachedRowSet.getString(i) + "   ");
 //
@@ -46,7 +52,7 @@ public class commandSQL {
 //
 //        } catch (Exception se) {
 //            System.out.println(se.getMessage());
-//             }
+//        }
 //
 //        return customerArray;
 //
@@ -174,10 +180,9 @@ public class commandSQL {
     }
 
     public void update_cmd(String tableName, int id, HashMap<String, String> ColVal) {
-        ArrayList<customer> selectedRow = new ArrayList<>();
 
         try {
-            String columnId="";
+            String columnId = "";
             switch (tableName) {
                 case "customer": {
                     columnId = "idCustomer";
@@ -227,6 +232,7 @@ public class commandSQL {
 
     }
 
+
     public void delete_cmd(String tableName, HashMap<String, String> colval) {
         StringBuilder delFromDB = new StringBuilder("DELETE from corebanking." + tableName + " where ");
         String columnId = (tableName == "customer" ? "idCustomer" : "idLoan");
@@ -258,13 +264,6 @@ public class commandSQL {
         }
 
     }
-
-//    public tables.dateTime getcurrentdate(){
-//
-//
-//    }
-
-
 
 
 /*

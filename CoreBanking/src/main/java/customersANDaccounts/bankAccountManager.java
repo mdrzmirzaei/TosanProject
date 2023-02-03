@@ -4,6 +4,7 @@ import DB.commandSQL;
 import Entities.bank_account;
 import Entities.transactions;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,11 +43,14 @@ public class bankAccountManager implements transactions {
             cmd.insert_cmd("transaction", transaction);
             return true;
         } else {
-            System.out.println("sorry !!!! customer is not found ");
+            System.out.println("sorry !!!! bank account is not found ");
             return false;
 
         }
 
 
     }
-}
+
+
+
+ }
