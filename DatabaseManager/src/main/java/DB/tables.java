@@ -43,4 +43,8 @@ public class tables {
     public enum bank_account{idbank_account,bank_account_balance, kind_of_currency, bank_account_customer_id}
 
 
+    public enum dateTime{
+        fullyear,year,months,days,houreANDminutes;
+    }
+
 }

@@ -1,6 +1,8 @@
 package DB;
 
+import Entities.bank_account;
 import Entities.customer;
+
 import javax.sql.rowset.CachedRowSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -11,10 +13,11 @@ import java.util.Scanner;
 
 
 public class commandSQL {
-customer customer=new customer();
 
+    customer customer = new customer();
     Scanner scanner = new Scanner(System.in);
-    ArrayList<customer> CustomerArray = new ArrayList<customer>();
+    ArrayList<customer> customerArray = new ArrayList<>();
+    ArrayList<bank_account> bank_accountArray = new ArrayList<>();
     private CachedRowSet cachedRowSet = null;
 
 
@@ -24,28 +27,30 @@ customer customer=new customer();
 
     }
 
-
-    public ArrayList<customer> select_cmd(String tableName) {
-        try {
-            cachedRowSet.setCommand("select * from " + tableName);
-            cachedRowSet.execute();
-            //to get information about table
-            ResultSetMetaData RST = cachedRowSet.getMetaData();
-            while (cachedRowSet.next()) {
-                CustomerArray.add(new customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
-                for (int i = 1; i < RST.getColumnCount(); i++) {
-                    System.out.print(cachedRowSet.getString(i) + "   ");
-
-                }
-                System.out.println("__");
-            }
-
-        } catch (SQLException se) {
-            System.out.println(se.getMessage());
-        }
-        return CustomerArray;
-
-    }
+//    public ArrayList<customer> select_cmd(String tableName) {
+//
+//        try {
+//           cachedRowSet.setCommand("select * from " + tableName);
+//            cachedRowSet.execute();
+//            //to get information about table
+//            ResultSetMetaData RST = cachedRowSet.getMetaData();
+//
+//            while (cachedRowSet.next()) {
+//                customerArray.add(new customer(cachedRowSet.getInt(1),cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4))) ;
+//                for (int i = 1; i < RST.getColumnCount(); i++) {
+//                    System.out.print(cachedRowSet.getString(i) + "   ");
+//
+//                }
+//                System.out.println("__");
+//            }
+//
+//        } catch (Exception se) {
+//            System.out.println(se.getMessage());
+//             }
+//
+//        return customerArray;
+//
+//    }
 
     public ArrayList<customer> select_cmd(String tableName, String columnName, String condition, String value) {
         try {
@@ -60,7 +65,8 @@ customer customer=new customer();
             //to get information about table
             ResultSetMetaData RST = cachedRowSet.getMetaData();
             while (cachedRowSet.next()) {
-                CustomerArray.add(new customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
+                new customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4));
+                customerArray.add(new customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
                 for (int i = 1; i < RST.getColumnCount(); i++) {
                     System.out.print(cachedRowSet.getString(i) + "   ");
                 }
@@ -70,9 +76,62 @@ customer customer=new customer();
         } catch (SQLException se) {
             System.out.println(se.getMessage());
         }
-        return CustomerArray;
+        return customerArray;
 
     }
+
+    public ArrayList<bank_account> select_bank_account(String columnName, String condition, String value) {
+        try {
+
+            cachedRowSet.setCommand("select * from bank_account where " + columnName + " " + condition + " ?");
+            if (columnName.contains("id")) {
+                cachedRowSet.setInt(1, Integer.valueOf(value));
+            } else {
+                cachedRowSet.setString(1, value);
+            }
+            cachedRowSet.execute();
+            //to get information about table
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
+            while (cachedRowSet.next()) {
+                bank_accountArray.add(new bank_account(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
+                for (int i = 1; i < RST.getColumnCount(); i++) {
+                    System.out.print(cachedRowSet.getString(i) + "   ");
+                }
+                System.out.println("__");
+            }
+
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+        }
+        return bank_accountArray;
+
+    }
+
+
+    public customer select_customer(String columnName, String condition, String value) {
+        try {
+
+            cachedRowSet.setCommand("select * from customer where " + columnName + " " + condition + " ?");
+            if (columnName.contains("id")) {
+                cachedRowSet.setInt(1, Integer.valueOf(value));
+            } else {
+                cachedRowSet.setString(1, value);
+            }
+            cachedRowSet.execute();
+            //to get information about table
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
+            new customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4));
+            for (int i = 1; i < RST.getColumnCount(); i++) {
+                System.out.print(cachedRowSet.getString(i) + "   ");
+            }
+            System.out.println("__");
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+        }
+        return customer;
+
+    }
+
 
     public void insert_cmd(String tableName, HashMap<String, String> cv) {
         StringBuilder inserintoDB = new StringBuilder("insert into corebanking." + tableName + " (");
@@ -85,10 +144,10 @@ customer customer=new customer();
             //inserintoDB.deleteCharAt(inserintoDB.lastIndexOf(","));
             inserintoDB.delete(inserintoDB.length() - 1, inserintoDB.length());
             inserintoDB.append(")  values (");
-            for (int i = 0; i <cv.size() ; i++) {
+            for (int i = 0; i < cv.size(); i++) {
                 inserintoDB.append("? , ");
             }
-            inserintoDB.delete(inserintoDB.length()-2,inserintoDB.length());
+            inserintoDB.delete(inserintoDB.length() - 2, inserintoDB.length());
             inserintoDB.append(" )");
 
 
@@ -118,9 +177,24 @@ customer customer=new customer();
         ArrayList<customer> selectedRow = new ArrayList<>();
 
         try {
-            String columnId = (tableName == "customer" ? "idCustomer" : "idLoan");
-            System.out.println("please enter id : ");
-            id = scanner.nextInt();
+            String columnId="";
+            switch (tableName) {
+                case "customer": {
+                    columnId = "idCustomer";
+                    break;
+                }
+                case "Loan": {
+                    columnId = "idLoan";
+                    break;
+                }
+                case "bank_account": {
+                    columnId = "idbank_account";
+                    break;
+                }
+            }
+
+//            System.out.println("please enter id : ");
+//            id = scanner.nextInt();
             StringBuilder Query = new StringBuilder("UPDATE " + tableName + " set ");
 
             int i = 1;
@@ -153,9 +227,8 @@ customer customer=new customer();
 
     }
 
-
     public void delete_cmd(String tableName, HashMap<String, String> colval) {
-        StringBuilder delFromDB = new StringBuilder("DELETE from corebanking." + tableName +" where ");
+        StringBuilder delFromDB = new StringBuilder("DELETE from corebanking." + tableName + " where ");
         String columnId = (tableName == "customer" ? "idCustomer" : "idLoan");
         try {
             for (Map.Entry<String, String> cc : colval.entrySet()) {
@@ -185,6 +258,13 @@ customer customer=new customer();
         }
 
     }
+
+//    public tables.dateTime getcurrentdate(){
+//
+//
+//    }
+
+
 
 
 /*

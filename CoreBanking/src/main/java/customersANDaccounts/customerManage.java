@@ -1,16 +1,15 @@
-package customerManager;
+package customersANDaccounts;
 
 import DB.commandSQL;
 import Entities.customer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+
+import java.util.*;
 
 
 public class customerManage {
 
-
     public ArrayList<customer> CustomerArray = new ArrayList<customer>();
+    Calendar c = new GregorianCalendar();
     commandSQL cmd = new commandSQL();
     private Scanner scanner = new Scanner(System.in);
     private String c_name;
@@ -18,13 +17,12 @@ public class customerManage {
     private String c_address;
 
 
-
     public customerManage(ArrayList<customer> customerArray) {
         CustomerArray = customerArray;
     }
 
     public customerManage() {
-            }
+    }
 
     public void insertCustomer() {
         System.out.println("please enter customer name :");
@@ -52,17 +50,32 @@ public class customerManage {
     }
 
 
-    public void showCustomers(){
+    public void showCustomers() {
 //cmd.select_cmd("customer");
-cmd.select_cmd("customer","customer_family","like","%می%");
+        cmd.select_customer("customer_family", "like", "%می%");
     }
 
-    public void customerEditor(){
+    public void customerEditor() {
         System.out.println("please enter id for edit cutomer");
 
 
-
     }
 
+    public void createCustomerAccount() {
+        System.out.println("pls enter customer_id : ");
+        int idcustomer = this.scanner.nextInt();
+        customer selected_customer = cmd.select_customer("idCustomer", " = ", String.valueOf(idcustomer));
+
+        HashMap<String, String> hm = new HashMap<>();
+        hm.put("idbank_account", String.valueOf(idcustomer) + "" + c.get(Calendar.DAY_OF_YEAR) + "" + c.get(Calendar.HOUR_OF_DAY));
+        System.out.println("please enter balance Amount of BankAccount :");
+        hm.put("bank_account_balance", this.scanner.nextBigDecimal().toString());
+        System.out.println("please enter kind of cureency of BankAccount :");
+        hm.put("kind_of_currency", String.valueOf(this.scanner.next().charAt(0)));
+        hm.put("bank_account_customer_id", String.valueOf(idcustomer));
+
+        cmd.insert_cmd("bank_account", hm);
+
+    }
 
 }
