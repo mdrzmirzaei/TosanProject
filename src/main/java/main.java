@@ -1,8 +1,3 @@
-import DB.commandSQL;
-
-import java.math.BigDecimal;
-import java.util.Scanner;
-
 public class main {
 
     public static void main(String[] args) {
@@ -12,6 +7,16 @@ public class main {
         LR.acceptRequet(s.nextBigDecimal(), 25);
       */
 
+//loanRequest lr =new loanRequest();
+
+//lr.test();
+
+        loanCalculate lc = new loanCalculate();
+        lc.paymentAmount = 30000000d;
+        lc.payMonths = 120;
+        lc.rate = 10d;
+        lc.fillLoanData();
+        lc.showloanFile();
 
     }
 }
