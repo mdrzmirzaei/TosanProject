@@ -12,11 +12,13 @@ public class main {
 //lr.test();
 
         loanCalculate lc = new loanCalculate();
-        lc.paymentAmount = 30000000d;
-        lc.payMonths = 120;
-        lc.rate = 10d;
-        lc.fillLoanData();
-        lc.showloanFile();
+        //lc.paymentAmount = 30000000d;
+        //lc.payMonths = 120;
+        //lc.rate = 10d;
+        //lc.fillLoanData();
+
+
+        lc.deposit();
 
     }
 }

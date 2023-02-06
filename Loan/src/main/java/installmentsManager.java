@@ -1,21 +1,21 @@
 import DB.commandSQL;
+import Entities.customer;
 import org.apache.poi.ss.formula.functions.Finance;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
-public class loanRequest {
-
-
+public class installmentsManager {
     private commandSQL cmd = new commandSQL();
+    Scanner scanner=new Scanner(System.in);
+    customer Customer=new customer();
 
-
-    public void createLoanFile(String tableName, HashMap<String, String> colval) {
-
-        cmd.insert_cmd(tableName, colval);
-
-    }
+public void selectInstallment(){
+    System.out.println("please enter customer Id:");
+    Customer=cmd.select_customer("idcustomer"," = ",String.valueOf(scanner.nextInt()));
+    
+}
 
 
     public void test() {

@@ -19,8 +19,10 @@ public class commandSQL {
     Scanner scanner = new Scanner(System.in);
     ArrayList<customer> customerArray = new ArrayList<>();
     ArrayList<bank_account> bank_accountArray = new ArrayList<>();
+
+
+    BigDecimal financial_amount;
     private CachedRowSet cachedRowSet = null;
-    public BigDecimal financial_amount=null;
 
 
     public commandSQL() {
@@ -70,7 +72,6 @@ public class commandSQL {
             }
             cachedRowSet.execute();
             //to get information about table
-            ResultSetMetaData RST = cachedRowSet.getMetaData();
             if (cachedRowSet.next()) {
                 return true;
             }
@@ -121,7 +122,7 @@ public class commandSQL {
                 cachedRowSet.setString(1, value);
             }
             cachedRowSet.execute();
-            ResultSetMetaData RST=cachedRowSet.getMetaData();
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
             //to get information about table
             while (cachedRowSet.next()) {
                 bank_accountArray.add(new bank_account(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
@@ -133,6 +134,7 @@ public class commandSQL {
 
         } catch (SQLException se) {
             System.out.println(se.getMessage());
+            System.out.println(se.getCause());
         }
         return bank_accountArray;
 
@@ -150,7 +152,7 @@ public class commandSQL {
                 cachedRowSet.setString(1, value);
             }
             cachedRowSet.execute();
-            ResultSetMetaData RST=cachedRowSet.getMetaData();
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
             //to get information about table
             while (cachedRowSet.next()) {
                 bank_accountArray.add(new bank_account(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
@@ -194,15 +196,15 @@ public class commandSQL {
             ResultSetMetaData RST = cachedRowSet.getMetaData();
             if (cachedRowSet.next()) {
 
-                customer=new customer(cachedRowSet.getInt("idCustomer"), cachedRowSet.getString("customer_name"), cachedRowSet.getString("customer_family"), cachedRowSet.getString("customer_address"));
+                customer = new customer(cachedRowSet.getInt("idCustomer"), cachedRowSet.getString("customer_name"), cachedRowSet.getString("customer_family"), cachedRowSet.getString("customer_address"));
                 for (int i = 1; i < RST.getColumnCount(); i++) {
                     System.out.print(cachedRowSet.getString(i) + "   ");
                 }
             }
-                System.out.println("__");
-            } catch(SQLException se){
-                System.out.println(se.getMessage());
-            }
+            System.out.println("__");
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+        }
 
         return customer;
 
@@ -266,6 +268,10 @@ public class commandSQL {
                     columnId = "idbank_account";
                     break;
                 }
+                case "financial_ressource": {
+                    columnId = "idfinancial_ressource_id";
+                    break;
+                }
             }
 
 //            System.out.println("please enter id : ");
@@ -301,7 +307,6 @@ public class commandSQL {
         }
 
     }
-
 
     public void delete_cmd(String tableName, HashMap<String, String> colval) {
         StringBuilder delFromDB = new StringBuilder("DELETE from corebanking." + tableName + " where ");
@@ -350,20 +355,24 @@ public class commandSQL {
     }
 
 
+    public BigDecimal get_financial_ressource_cmd() {
+        try {
+            cachedRowSet.setCommand("select financial_amount from financial_ressource");
+            cachedRowSet.execute();
 
-    public BigDecimal get_financial_ressource(){
-        try{
-        cachedRowSet.setCommand("select financial_amount from financial_ressource");
-        cachedRowSet.execute();
+            if (cachedRowSet.next()) {
+                this.financial_amount = cachedRowSet.getBigDecimal("financial_amount");
+            }
 
-          financial_amount=cachedRowSet.getBigDecimal("financial_amount");
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
-        catch(SQLException se){
-        System.out.println(se.getMessage());
-    }
+
 
         return financial_amount;
     }
+
+
 }
 
 

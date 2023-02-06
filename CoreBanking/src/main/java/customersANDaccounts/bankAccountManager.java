@@ -45,7 +45,7 @@ public class bankAccountManager implements transactions {
                 cmd.update_cmd("bank_account", selected_bank_account.getIdbank_acocunt(), bankaccount);
 
                 transaction.put("transaction_amount", Amount.toString());
-                transaction.put("transaction_status", String.valueOf("F".charAt(0)));
+                transaction.put("transaction_status", String.valueOf("T".charAt(0)));
                 transaction.put("transaction_customer_id", String.valueOf(selected_bank_account.getIdcustomer_bank_acount()));
                 transaction.put("transaction_destination", String.valueOf(selected_bank_account.getIdbank_acocunt()));
 

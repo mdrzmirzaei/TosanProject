@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class loanFile {
+public class installments {
     private String idloan;
     private Date dueDate;
     private double loan_principle_amount;
@@ -11,7 +11,7 @@ public class loanFile {
     private int id_bank_account_loan;
 
 
-    public loanFile(String idloan, Date dueDate, double loan_principle_amount, double loan_interest, double loan_sum_pi_amount, char loan_status, int id_ustomer_loan, int id_bank_account_loan) {
+    public installments(String idloan, Date dueDate, double loan_principle_amount, double loan_interest, double loan_sum_pi_amount, char loan_status, int id_ustomer_loan, int id_bank_account_loan) {
         this.idloan = idloan;
         this.dueDate = dueDate;
         this.loan_principle_amount = loan_principle_amount;
