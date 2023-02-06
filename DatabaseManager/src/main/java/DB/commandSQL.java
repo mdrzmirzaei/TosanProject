@@ -4,6 +4,7 @@ import Entities.bank_account;
 import Entities.customer;
 
 import javax.sql.rowset.CachedRowSet;
+import java.math.BigDecimal;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class commandSQL {
     ArrayList<customer> customerArray = new ArrayList<>();
     ArrayList<bank_account> bank_accountArray = new ArrayList<>();
     private CachedRowSet cachedRowSet = null;
+    public BigDecimal financial_amount=null;
 
 
     public commandSQL() {
@@ -348,6 +350,20 @@ public class commandSQL {
     }
 
 
+
+    public BigDecimal get_financial_ressource(){
+        try{
+        cachedRowSet.setCommand("select financial_amount from financial_ressource");
+        cachedRowSet.execute();
+
+          financial_amount=cachedRowSet.getBigDecimal("financial_amount");
+        }
+        catch(SQLException se){
+        System.out.println(se.getMessage());
+    }
+
+        return financial_amount;
+    }
 }
 
 

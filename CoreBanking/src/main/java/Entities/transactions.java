@@ -15,4 +15,5 @@ import java.util.Scanner;
 public interface transactions {
 
   boolean deposit();
+  BigDecimal withDraw();
 }
