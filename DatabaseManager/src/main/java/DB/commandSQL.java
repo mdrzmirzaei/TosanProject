@@ -2,8 +2,10 @@ package DB;
 
 import Entities.bank_account;
 import Entities.customer;
+import installments.installments;
 
 import javax.sql.rowset.CachedRowSet;
+import javax.swing.text.DefaultEditorKit;
 import java.math.BigDecimal;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -19,7 +21,7 @@ public class commandSQL {
     Scanner scanner = new Scanner(System.in);
     ArrayList<customer> customerArray = new ArrayList<>();
     ArrayList<bank_account> bank_accountArray = new ArrayList<>();
-
+    ArrayList<installments> installmentsArray = new ArrayList<>();
 
     BigDecimal financial_amount;
     private CachedRowSet cachedRowSet = null;
@@ -28,6 +30,32 @@ public class commandSQL {
     public commandSQL() {
         initDB.ConnectOk();
         cachedRowSet = initDB.initCachedRowset();
+
+    }
+
+
+    public ArrayList<installments> select_installment_cmd(customer Customer) {
+        try {
+            cachedRowSet.setCommand("select * from installments where installments_customer_id = ? and installments_status = 'N' order by installments_months");
+            cachedRowSet.setInt(1, Customer.getIdCustomer());
+            cachedRowSet.execute();
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
+            //to get information about table
+            while (cachedRowSet.next()) {
+                installmentsArray.add(new installments(cachedRowSet.getString(1),cachedRowSet.getInt(2),cachedRowSet.getDouble(3), cachedRowSet.getInt(4) ,cachedRowSet.getDouble(5), cachedRowSet.getString(6).charAt(0), cachedRowSet.getInt(7), cachedRowSet.getInt(8), cachedRowSet.getDate(9)));
+                for (int i = 1; i < RST.getColumnCount(); i++) {
+                    System.out.print(cachedRowSet.getString(i) + "   ");
+                }
+
+                System.out.println("");
+            }
+
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+            System.out.println(se.getCause());
+        }
+        return installmentsArray;
+
 
     }
 
@@ -63,7 +91,6 @@ public class commandSQL {
 
     public boolean select_financial(String tableName, String columnName, String condition, String value) {
         try {
-
             cachedRowSet.setCommand("select * from " + tableName + " where " + columnName + " " + condition + " ?");
             if (columnName.contains("id")) {
                 cachedRowSet.setInt(1, Integer.valueOf(value));

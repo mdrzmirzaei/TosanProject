@@ -1,3 +1,5 @@
+package installments;
+
 import DB.commandSQL;
 import Entities.customer;
 import org.apache.poi.ss.formula.functions.Finance;

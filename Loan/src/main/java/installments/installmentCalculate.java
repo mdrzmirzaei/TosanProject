@@ -1,7 +1,10 @@
+package installments;
+
 import DB.commandSQL;
 import Entities.bank_account;
 import Entities.customer;
 import Entities.transactions;
+import loan.loanManager;
 import org.apache.poi.ss.formula.functions.Finance;
 
 import java.math.BigDecimal;
@@ -10,31 +13,21 @@ import java.time.ZoneId;
 import java.util.*;
 
 
-public class loanCalculate implements transactions {
+public class installmentCalculate implements transactions {
     static Double rate;
     static int payMonths;
     static Double paymentAmount;
     ArrayList<installments> installments = new ArrayList<>();
     commandSQL cmd = new commandSQL();
     Scanner scanner = new Scanner(System.in);
-    private BigDecimal remain = null;
+    loanManager loanManager = new loanManager();
+    private BigDecimal ressourceRemain = null;
     private BigDecimal loanAmount = null;
     private int months = 0;
     private Date dueDate;
 
     public void createLoanFile(String tableName, HashMap<String, String> colval) {
         cmd.insert_cmd(tableName, colval);
-    }
-
-
-    public BigDecimal loanRequest(BigDecimal Amount, int monthsToPay) {
-        if (cmd.select_financial("financial_ressource", "financial_amount", ">=", Amount.toString())) {
-            System.out.println("you can get the loan");
-            return this.loanAmount;
-        } else {
-            System.out.println("you can not Get Loan!!!");
-            return null;
-        }
     }
 
 
@@ -45,12 +38,13 @@ public class loanCalculate implements transactions {
         this.loanAmount = scanner.nextBigDecimal();
         System.out.println("please enter months to pay :");
         this.months = scanner.nextInt();
-        if (loanRequest(this.loanAmount, this.months) != null) {
+        if (new loanManager().loanRequest(this.loanAmount, this.months) != false) {
             HashMap<String, String> financial = new HashMap<>();
-            remain = cmd.get_financial_ressource_cmd().subtract(this.loanAmount);
-            financial.put("financial_amount", remain.toString());
+            ressourceRemain = cmd.get_financial_ressource_cmd().subtract(this.loanAmount);
+            financial.put("financial_amount", ressourceRemain.toString());
             cmd.update_cmd("financial_ressource", 1, financial);
             return this.loanAmount;
+
         } else
             return null;
     }
@@ -100,12 +94,11 @@ public class loanCalculate implements transactions {
         return true;
     }
 
-    public void fillLoanData() {
-        Scanner scanner = new Scanner(System.in);
-        commandSQL cmd = new commandSQL();
-
-        customer Customer = cmd.select_customer("idCustomer", "=", "10016");
-        bank_account selectedBankAccount = cmd.select_one_bank_account("bank_account_customer_id", "=", "10016");
+    public void fillInstallmentsData() {
+        System.out.println("pls enter customer ID : ");
+        int idcustomer = scanner.nextInt();
+        customer Customer = cmd.select_customer("idCustomer", "=", String.valueOf(idcustomer));
+        bank_account selectedBankAccount = cmd.select_one_bank_account("bank_account_customer_id", "=",String.valueOf(idcustomer));
 
         Calendar c = Calendar.getInstance();
         Date myDate;
@@ -113,23 +106,24 @@ public class loanCalculate implements transactions {
         Double monthsRate = ((rate / 12) / 100);
 
         for (int i = 1; i <= payMonths; i++) {
-            HashMap<String, String> loans = new HashMap<>();
+            HashMap<String, String> installs = new HashMap<>();
 
             myDate = Date.from(LocalDate.now().plusMonths(i).atStartOfDay(ZoneId.systemDefault()).toInstant());
             java.sql.Date newDate = new java.sql.Date(myDate.getTime());
 
-            loans.put("idloan", Customer.getIdCustomer() + "" + payMonths + rate.intValue());
-            loans.put("dueDate", newDate.toString());
-            loans.put("loan_principle_amount", String.valueOf(Math.round(Finance.ppmt(monthsRate, i, payMonths, paymentAmount) * -1)));
-            loans.put("loan_interest", String.valueOf(Math.round(Finance.ipmt(monthsRate, i, payMonths, paymentAmount) * -1)));
-            loans.put("loan_sum_pi_amount", String.valueOf(Math.round(Finance.pmt(monthsRate, payMonths, paymentAmount) * -1)));
-            loans.put("loan_status", "T");
-            loans.put("loan_customer_id", String.valueOf(Customer.getIdCustomer()));
-            loans.put("loan_account_id", String.valueOf(selectedBankAccount.getIdbank_acocunt()));
-            loans.put("loan_months", String.valueOf(i));
+            installs.put("installments_idloan", Customer.getIdCustomer() + "" + payMonths + rate.intValue());
+            installs.put("installments_dueDate", newDate.toString());
+            installs.put("installments_principle_amount", String.valueOf(Math.round(Finance.ppmt(monthsRate, i, payMonths, paymentAmount) * -1)));
+            installs.put("installments_interest", String.valueOf(Math.round(Finance.ipmt(monthsRate, i, payMonths, paymentAmount) * -1)));
+            installs.put("installments_sum_pi_amount", String.valueOf(Math.round(Finance.pmt(monthsRate, payMonths, paymentAmount) * -1)));
+            installs.put("installments_status", "T");
+            installs.put("installments_customer_id", String.valueOf(Customer.getIdCustomer()));
+            installs.put("installments_account_id", String.valueOf(selectedBankAccount.getIdbank_acocunt()));
+            installs.put("installments_months", String.valueOf(i));
 
-            cmd.insert_cmd("Loan", loans);
-            installments.add(new installments(Customer.getIdCustomer() + "" + payMonths + rate.intValue(), newDate, Math.round(Finance.ppmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.ipmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.pmt(monthsRate, payMonths, paymentAmount) * -1), 'N', Customer.getIdCustomer(), selectedBankAccount.getIdbank_acocunt()));
+            cmd.insert_cmd("installments", installs);
+            installments.add(new installments(Customer.getIdCustomer() + "" + payMonths + rate.intValue(),i, Math.round(Finance.ppmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.ipmt(monthsRate,i, payMonths, paymentAmount)* -1) , Math.round(Finance.pmt(monthsRate, payMonths, paymentAmount) * -1), 'F', Customer.getIdCustomer(), selectedBankAccount.getIdbank_acocunt(),newDate));
+
 
         }
 

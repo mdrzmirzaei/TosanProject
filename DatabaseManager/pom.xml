@@ -14,18 +14,17 @@
             <artifactId>CoreBanking</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>Loan</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.24</version>
         </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>Loan</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
     </dependencies>
 
     <build>

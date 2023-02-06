@@ -1,3 +1,8 @@
+import DB.commandSQL;
+import installments.installmentCalculate;
+
+import java.util.Scanner;
+
 public class main {
 
     public static void main(String[] args) {
@@ -11,14 +16,16 @@ public class main {
 
 //lr.test();
 
-        loanCalculate lc = new loanCalculate();
+        installmentCalculate lc = new installmentCalculate();
         //lc.paymentAmount = 30000000d;
         //lc.payMonths = 120;
         //lc.rate = 10d;
         //lc.fillLoanData();
 
-
-        lc.deposit();
+Scanner scanner=new Scanner(System.in);
+commandSQL cmd=new commandSQL();
+        System.out.println("please enter idcustomer:");
+cmd.select_installment_cmd(cmd.select_customer("idcustomer","=",String.valueOf(scanner.nextInt())));
 
     }
 }
