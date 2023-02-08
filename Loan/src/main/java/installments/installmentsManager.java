@@ -15,7 +15,7 @@ public class installmentsManager {
 
 public void selectInstallment(){
     System.out.println("please enter customer Id:");
-    Customer=cmd.select_customer("idcustomer"," = ",String.valueOf(scanner.nextInt()));
+    Customer=cmd.select_customer_cmd("idcustomer"," = ",String.valueOf(scanner.nextInt()));
     
 }
 

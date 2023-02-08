@@ -52,7 +52,7 @@ public class customerManage {
 
     public void showCustomers() {
 //cmd.select_cmd("customer");
-        cmd.select_customer("customer_family", "like", "%می%");
+        cmd.select_customer_cmd("customer_family", "like", "%می%");
     }
 
     public void customerEditor() {
@@ -64,7 +64,7 @@ public class customerManage {
     public void createCustomerAccount() {
         System.out.println("pls enter customer_id : ");
         int idcustomer = this.scanner.nextInt();
-        customer selected_customer = cmd.select_customer("idCustomer", " = ", String.valueOf(idcustomer));
+        customer selected_customer = cmd.select_customer_cmd("idCustomer", " = ", String.valueOf(idcustomer));
 
         HashMap<String, String> hm = new HashMap<>();
         hm.put("idbank_account", String.valueOf(idcustomer) + "" + c.get(Calendar.DAY_OF_YEAR) + "" + c.get(Calendar.HOUR_OF_DAY));

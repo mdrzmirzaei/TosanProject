@@ -26,7 +26,7 @@ public class bankAccountManager implements transactions {
             HashMap<String, String> transaction = new HashMap();
             System.out.println("pls enter customer ID : ");
             int idcustomer = scanner.nextInt();
-            ArrayList<bank_account> bank_accountArray = cmd.select_bank_account("bank_account_customer_id", " = ", String.valueOf(idcustomer));
+            ArrayList<bank_account> bank_accountArray = cmd.select_bank_accounts("bank_account_customer_id", " = ", String.valueOf(idcustomer));
 
             if (bank_accountArray != null) {
                 System.out.println("i find Bank Account!!!");

@@ -9,7 +9,7 @@ public class loanManager {
 commandSQL cmd=new commandSQL();
 
     public Boolean loanRequest(BigDecimal Amount, int monthsToPay) {
-        if (cmd.select_financial("financial_ressource", "financial_amount", ">=", Amount.toString())) {
+        if (cmd.select_financial_cmd("financial_ressource", "financial_amount", ">=", Amount.toString())) {
             System.out.println("you can get the loan");
             return true;
         } else {

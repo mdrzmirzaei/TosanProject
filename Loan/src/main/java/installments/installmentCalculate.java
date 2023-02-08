@@ -26,9 +26,9 @@ public class installmentCalculate implements transactions {
     private int months = 0;
     private Date dueDate;
 
-    public void createLoanFile(String tableName, HashMap<String, String> colval) {
-        cmd.insert_cmd(tableName, colval);
-    }
+//    public void createLoanFile(String tableName, HashMap<String, String> colval) {
+//        cmd.insert_cmd(tableName, colval);
+//    }
 
 
     // this method is for withdraw from financial ressourse
@@ -61,7 +61,7 @@ public class installmentCalculate implements transactions {
 
             System.out.println("pls enter customer ID : ");
             int idcustomer = scanner.nextInt();
-            ArrayList<bank_account> bank_accountArray = cmd.select_bank_account("bank_account_customer_id", " = ", String.valueOf(idcustomer));
+            ArrayList<bank_account> bank_accountArray = cmd.select_bank_accounts("bank_account_customer_id", " = ", String.valueOf(idcustomer));
 
             if (bank_accountArray != null) {
                 System.out.println("i find Bank Account!!!");
@@ -97,7 +97,7 @@ public class installmentCalculate implements transactions {
     public void fillInstallmentsData() {
         System.out.println("pls enter customer ID : ");
         int idcustomer = scanner.nextInt();
-        customer Customer = cmd.select_customer("idCustomer", "=", String.valueOf(idcustomer));
+        customer Customer = cmd.select_customer_cmd("idCustomer", "=", String.valueOf(idcustomer));
         bank_account selectedBankAccount = cmd.select_one_bank_account("bank_account_customer_id", "=",String.valueOf(idcustomer));
 
         Calendar c = Calendar.getInstance();

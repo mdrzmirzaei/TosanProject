@@ -1,5 +1,6 @@
 import DB.commandSQL;
 import installments.installmentCalculate;
+import installments.installmentPayment;
 
 import java.util.Scanner;
 
@@ -25,7 +26,10 @@ public class main {
 Scanner scanner=new Scanner(System.in);
 commandSQL cmd=new commandSQL();
         System.out.println("please enter idcustomer:");
-cmd.select_installment_cmd(cmd.select_customer("idcustomer","=",String.valueOf(scanner.nextInt())));
+//cmd.select_installment_cmd(cmd.select_customer("idcustomer","=",String.valueOf(scanner.nextInt())));
+//        installmentPayment ip=new installmentPayment();
+        cmd.update_cmd("customer",10017,"customer_name","علیرضا");
+//        ip.deposit();
 
     }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public class connectionPool implements  AutoCloseable{
-    private final int max_conneciton = 5;
+    private final int max_conneciton = 10;
     private List<Connection> availabeConnecitons = new ArrayList<Connection>();
     private List<Connection> usedConnecitons = new ArrayList<Connection>();
     private String url;
