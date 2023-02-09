@@ -25,15 +25,17 @@ public class main {
 
         Scanner scanner = new Scanner(System.in);
         commandSQL cmd = new commandSQL();
-        customer c = new customer();
-        System.out.println("please enter idcustomer:");
-//cmd.select_installment_cmd(cmd.select_customer("idcustomer","=",String.valueOf(scanner.nextInt())));
-//        installmentPayment ip=new installmentPayment();
-        c = cmd.select_customer_cmd("idcustomer", "= ", String.valueOf(scanner.nextInt()));
-        scanner.nextLine();
-        System.out.println("please enter name of customer: ");
-        cmd.update_cmd("customer", c.getIdCustomer(), "customer_name", scanner.nextLine());
-//        ip.deposit();
+        System.out.println(cmd.get_financial_ressource_cmd()) ;
+        cmd.set_financial_ressource_cmd(2000000d,'+');
+//        customer c = new customer();
+//        System.out.println("please enter idcustomer:");
+////cmd.select_installment_cmd(cmd.select_customer("idcustomer","=",String.valueOf(scanner.nextInt())));
+////        installmentPayment ip=new installmentPayment();
+//        c = cmd.select_customer_cmd("idcustomer", "= ", String.valueOf(scanner.nextInt()));
+//        scanner.nextLine();
+//        System.out.println("please enter name of customer: ");
+//        cmd.update_cmd("customer", c.getIdCustomer(), "customer_name", scanner.nextLine());
+////        ip.deposit();
 
     }
 }

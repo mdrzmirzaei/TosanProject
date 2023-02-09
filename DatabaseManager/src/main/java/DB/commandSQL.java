@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-public class commandSQL implements AutoCloseable{
+public class commandSQL implements AutoCloseable {
     customer customer = new customer();
     Scanner scanner = new Scanner(System.in);
     private CachedRowSet cachedRowSet = null;
@@ -25,11 +25,10 @@ public class commandSQL implements AutoCloseable{
     BigDecimal financial_amount;
 
 
-
     public commandSQL() {
         initDB.ConnectOk();
         cachedRowSet = initDB.initCachedRowset();
-            }
+    }
 
     /*public ArrayList<customer> select_cmd(String tableName, String columnName, String condition, String value) {
     try {
@@ -513,24 +512,43 @@ public class commandSQL implements AutoCloseable{
         return financial_amount;
     }
 
-    @Override
-    public void close() throws Exception {
-        try{
-            initDB.releaseDB();
-        } catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-            System.out.println(e.getCause());
+    public BigDecimal set_financial_ressource_cmd(Double financialAmount, char operatoe) {
+        try {
+            cachedRowSet.setCommand("update financial_ressource set financial_amount =" + get_financial_ressource_cmd() + " " + operatoe + " ?");
+            cachedRowSet.setString(1, financialAmount.toString());
+            cachedRowSet.execute();
+
+            cachedRowSet.setCommand("select financial_amount from financial_ressource");
+            cachedRowSet.execute();
+
+            if (cachedRowSet.next()) {
+                this.financial_amount = cachedRowSet.getBigDecimal("financial_amount");
+                System.out.println("new Amount of financial is "+ financial_amount);
+            }
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
         finally {
-try {
-    initDB.releaseDB();
-    cachedRowSet.close();
-}catch (Exception e)
-{
-    System.out.println(e.getMessage());
-    System.out.println(e.getCause());
-}
+            initDB.releaseDB();
+        }
+        return this.financial_amount;
+    }
+
+    @Override
+    public void close() throws Exception {
+        try {
+            initDB.releaseDB();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+        } finally {
+            try {
+                initDB.releaseDB();
+                cachedRowSet.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println(e.getCause());
+            }
         }
     }
 }
