@@ -39,12 +39,9 @@ public class installmentCalculate implements transactions {
         System.out.println("please enter months to pay :");
         this.months = scanner.nextInt();
         if (new loanManager().loanRequest(this.loanAmount, this.months) != false) {
-            HashMap<String, String> financial = new HashMap<>();
             ressourceRemain = cmd.get_financial_ressource_cmd().subtract(this.loanAmount);
-            financial.put("financial_amount", ressourceRemain.toString());
-            cmd.update_cmd("financial_ressource", 1, financial);
+            cmd.update_cmd("financial_ressource", 1, "financial_amount", ressourceRemain.toString());
             return this.loanAmount;
-
         } else
             return null;
     }
@@ -55,7 +52,6 @@ public class installmentCalculate implements transactions {
 
         if (withDraw() != null) {
             bank_account selected_bank_account = new bank_account();
-            HashMap<String, String> bankaccount = new HashMap();
             HashMap<String, String> transaction = new HashMap();
 
 
@@ -64,7 +60,7 @@ public class installmentCalculate implements transactions {
             ArrayList<bank_account> bank_accountArray = cmd.select_bank_accounts("bank_account_customer_id", " = ", String.valueOf(idcustomer));
 
             if (bank_accountArray != null) {
-                System.out.println("i find Bank Account!!!");
+                System.out.println("find Bank Accounts!!!");
                 System.out.println("please select acccount :");
                 int sel = scanner.nextInt();
                 for (int i = 0; i < bank_accountArray.size(); i++) {
@@ -74,9 +70,7 @@ public class installmentCalculate implements transactions {
                 }
                 dueDate = new Date();
                 java.sql.Date newDate = new java.sql.Date(dueDate.getTime());
-
-                bankaccount.put("bank_account_balance", String.valueOf(selected_bank_account.getBank_account_balance().add(loanAmount)));
-                cmd.update_cmd("bank_account", selected_bank_account.getIdbank_acocunt(), bankaccount);
+                cmd.update_cmd("bank_account", selected_bank_account.getIdbank_acocunt(), "bank_account_balance", String.valueOf(selected_bank_account.getBank_account_balance().add(loanAmount)));
                 transaction.put("transaction_date", newDate.toString());
                 transaction.put("transaction_time", newDate.getHours() + ":" + newDate.getMinutes());
                 transaction.put("transaction_amount", loanAmount.toString());
@@ -98,7 +92,7 @@ public class installmentCalculate implements transactions {
         System.out.println("pls enter customer ID : ");
         int idcustomer = scanner.nextInt();
         customer Customer = cmd.select_customer_cmd("idCustomer", "=", String.valueOf(idcustomer));
-        bank_account selectedBankAccount = cmd.select_one_bank_account("bank_account_customer_id", "=",String.valueOf(idcustomer));
+        bank_account selectedBankAccount = cmd.select_one_bank_account("bank_account_customer_id", "=", String.valueOf(idcustomer));
 
         Calendar c = Calendar.getInstance();
         Date myDate;
@@ -122,7 +116,7 @@ public class installmentCalculate implements transactions {
             installs.put("installments_months", String.valueOf(i));
 
             cmd.insert_cmd("installments", installs);
-            installments.add(new installments(Customer.getIdCustomer() + "" + payMonths + rate.intValue(),i, Math.round(Finance.ppmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.ipmt(monthsRate,i, payMonths, paymentAmount)* -1) , Math.round(Finance.pmt(monthsRate, payMonths, paymentAmount) * -1), 'F', Customer.getIdCustomer(), selectedBankAccount.getIdbank_acocunt(),newDate));
+            installments.add(new installments(Customer.getIdCustomer() + "" + payMonths + rate.intValue(), i, Math.round(Finance.ppmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.ipmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.pmt(monthsRate, payMonths, paymentAmount) * -1), 'F', Customer.getIdCustomer(), selectedBankAccount.getIdbank_acocunt(), newDate));
 
 
         }

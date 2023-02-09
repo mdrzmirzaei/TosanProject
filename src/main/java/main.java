@@ -1,6 +1,6 @@
 import DB.commandSQL;
+import Entities.customer;
 import installments.installmentCalculate;
-import installments.installmentPayment;
 
 import java.util.Scanner;
 
@@ -23,12 +23,16 @@ public class main {
         //lc.rate = 10d;
         //lc.fillLoanData();
 
-Scanner scanner=new Scanner(System.in);
-commandSQL cmd=new commandSQL();
+        Scanner scanner = new Scanner(System.in);
+        commandSQL cmd = new commandSQL();
+        customer c = new customer();
         System.out.println("please enter idcustomer:");
 //cmd.select_installment_cmd(cmd.select_customer("idcustomer","=",String.valueOf(scanner.nextInt())));
 //        installmentPayment ip=new installmentPayment();
-        cmd.update_cmd("customer",10017,"customer_name","علیرضا");
+        c = cmd.select_customer_cmd("idcustomer", "= ", String.valueOf(scanner.nextInt()));
+        scanner.nextLine();
+        System.out.println("please enter name of customer: ");
+        cmd.update_cmd("customer", c.getIdCustomer(), "customer_name", scanner.nextLine());
 //        ip.deposit();
 
     }

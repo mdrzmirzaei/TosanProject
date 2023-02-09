@@ -525,6 +525,7 @@ public class commandSQL implements AutoCloseable{
         finally {
 try {
     initDB.releaseDB();
+    cachedRowSet.close();
 }catch (Exception e)
 {
     System.out.println(e.getMessage());
