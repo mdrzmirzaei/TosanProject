@@ -41,17 +41,56 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.9</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+
+          <dependency>
+              <groupId>net.sf.jasperreports</groupId>
+              <artifactId>jasperreports-fonts</artifactId>
+              <version>6.0.0</version>
+          </dependency>
+
+          <dependency>
+              <groupId>org.slf4j</groupId>
+              <artifactId>slf4j-api</artifactId>
+              <version>1.7.12</version>
+          </dependency>
+          <!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
+          <dependency>
+              <groupId>com.lowagie</groupId>
+              <artifactId>itext</artifactId>
+              <version>2.1.7</version>
+          </dependency>
+
+          <dependency>
+              <groupId>net.sf.jasperreports</groupId>
+              <artifactId>jasperreports-fonts</artifactId>
+              <version>6.0.0</version>
+          </dependency>
+
+          <dependency>
+              <groupId>commons-beanutils</groupId>
+              <artifactId>commons-beanutils-core</artifactId>
+              <version>1.8.3</version>
+          </dependency>
+
+          <dependency>
+              <groupId>commons-collections</groupId>
+              <artifactId>commons-collections</artifactId>
+              <version>3.2.1</version>
+          </dependency>
+
+          <dependency>
+              <groupId>commons-logging</groupId>
+              <artifactId>commons-logging</artifactId>
+              <version>1.1.1</version>
+          </dependency>
 
           <dependency>
               <groupId>org.apache.commons</groupId>
-              <artifactId>commons-collections4</artifactId>
-              <version>4.4</version>
+              <artifactId>commons-digester3</artifactId>
+              <version>3.2</version>
+
           </dependency>
-
-
-
-    </dependencies>
+   </dependencies>
     <build>
         <pluginManagement>
             <plugins>
@@ -97,7 +136,6 @@
             </plugins>
         </pluginManagement>
     </build>
-
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
