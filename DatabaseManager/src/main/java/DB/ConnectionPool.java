@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class connectionPool implements  AutoCloseable{
+public class ConnectionPool implements  AutoCloseable{
     private final int max_conneciton = 10;
     private List<Connection> availabeConnecitons = new ArrayList<Connection>();
     private List<Connection> usedConnecitons = new ArrayList<Connection>();
@@ -20,7 +20,7 @@ public class connectionPool implements  AutoCloseable{
      * @author Mirza
      */
 
-    public connectionPool(String url, String user, String password)  {
+    public ConnectionPool(String url, String user, String password)  {
         try {
         this.url = url;
         this.user = user;

@@ -1,20 +1,13 @@
 package customersANDaccounts;
 
-import DB.commandSQL;
+import DB.CommandSQL;
 import Entities.Transaction;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Header;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
-
 import java.io.File;
 import java.io.FileOutputStream;
-import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,11 +16,11 @@ import java.util.concurrent.TimeUnit;
 public class BankManager {
     public XSSFWorkbook workbook = new XSSFWorkbook();
     public XSSFSheet sheet = workbook.createSheet("Report");// i creat blank sheet
-    commandSQL cmd = new commandSQL();
+    CommandSQL cmd = new CommandSQL();
 
     public void exportExcel() {
 
-        Row row= sheet.createRow(0);
+        Row row = sheet.createRow(0);
 
         row.createCell(0).setCellValue("شماره تراکنش");
         row.createCell(1).setCellValue("تاریخ");
@@ -44,18 +37,17 @@ public class BankManager {
         }
 
 
-
         ArrayList<Transaction> transactionList = cmd.getTransacitons('A');
 
-        int threadCount=4;
-        int patitionSize=threadCount;
-        if (threadCount>transactionList.size())
-            patitionSize= transactionList.size();
+        int threadCount = 4;
+        int patitionSize = threadCount;
+        if (threadCount > transactionList.size())
+            patitionSize = transactionList.size();
 
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
 
         for (int i = 0; i < transactionList.size(); i++) {
-            int partition = transactionList.size() /patitionSize;
+            int partition = transactionList.size() / patitionSize;
             int from = i * transactionList.size();
             int to = from + transactionList.size();
             executorService.submit(new ThreadRun(from, to, transactionList));
@@ -63,11 +55,10 @@ public class BankManager {
         executorService.shutdown();
 
 
-
         try {
 
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-            FileOutputStream fos = new FileOutputStream(new File("C:\\Users\\Mirza\\Desktop\\Report.xlsx"));
+            FileOutputStream fos = new FileOutputStream(new File(System.getProperty("user.dir") + "\\Report.xlsx"));
 
 
             workbook.write(fos);
@@ -83,7 +74,7 @@ public class BankManager {
     public class ThreadRun implements Runnable {
         int from;
         int to;
-        ArrayList<Transaction> transactionArray=new ArrayList<>();
+        ArrayList<Transaction> transactionArray = new ArrayList<>();
 
         public ThreadRun(int from, int to, ArrayList<Transaction> transactionArray) {
             this.from = from;
@@ -93,7 +84,7 @@ public class BankManager {
 
         @Override
         public void run() {
-            for (int i = from+1; i < to+1; i++) {
+            for (int i = from + 1; i < to + 1; i++) {
 
                 Row row = sheet.createRow(i);
                 row.createCell(0).setCellValue(transactionArray.get(i).getIdtransaction());

@@ -5,9 +5,9 @@ import javax.sql.rowset.RowSetFactory;
 import javax.sql.rowset.RowSetProvider;
 import java.sql.*;
 
-public abstract class initDB {
+public abstract class InitDB {
     private static CachedRowSet cachedRowSet = null;
-    private static connectionPool cp = new connectionPool("jdbc:mysql://localhost:3306/corebanking", "admin_cb", "cb");
+    private static ConnectionPool cp = new ConnectionPool("jdbc:mysql://localhost:3306/corebanking", "admin_cb", "cb");
 
     public static Connection ConnectOk() {
 
@@ -40,7 +40,7 @@ public abstract class initDB {
 
     public  static void  releaseDB(){
         try{
-            cp.releaseConnection(initDB.ConnectOk());
+            cp.releaseConnection(InitDB.ConnectOk());
         }
         catch(Exception e){
             System.out.println(e.getMessage());

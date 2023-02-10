@@ -1,17 +1,17 @@
 package installments;
 
-import DB.commandSQL;
-import Entities.customer;
+import DB.CommandSQL;
+import Entities.Customer;
 import org.apache.poi.ss.formula.functions.Finance;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class installmentsManager {
-    private commandSQL cmd = new commandSQL();
+public class InstallmentsManager {
+    private CommandSQL cmd = new CommandSQL();
     Scanner scanner=new Scanner(System.in);
-    customer Customer=new customer();
+    Entities.Customer Customer=new Customer();
 
 public void selectInstallment(){
     System.out.println("please enter customer Id:");

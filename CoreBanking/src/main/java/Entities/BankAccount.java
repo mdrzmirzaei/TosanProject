@@ -2,16 +2,16 @@ package Entities;
 
 import java.math.BigDecimal;
 
-public class bank_account {
+public class BankAccount {
     public int idbank_account;
     private BigDecimal bank_account_balance;
     private char kind_of_currency;
     private int idcustomer_bank_acount;
 
-    public bank_account() {
+    public BankAccount() {
     }
 
-    public bank_account(int idbank_account, BigDecimal bank_account_balance, char kind_of_currency, int idcustomer_bank_acount) {
+    public BankAccount(int idbank_account, BigDecimal bank_account_balance, char kind_of_currency, int idcustomer_bank_acount) {
         this.idbank_account = idbank_account;
         this.bank_account_balance = bank_account_balance;
         this.kind_of_currency = kind_of_currency;

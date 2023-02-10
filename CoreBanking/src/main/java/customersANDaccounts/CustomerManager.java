@@ -1,27 +1,27 @@
 package customersANDaccounts;
 
-import DB.commandSQL;
-import Entities.customer;
+import DB.CommandSQL;
+import Entities.Customer;
 
 import java.util.*;
 
 
-public class customerManage {
+public class CustomerManager {
 
-    public ArrayList<customer> CustomerArray = new ArrayList<customer>();
+    public ArrayList<Customer> CustomerArray = new ArrayList<Customer>();
     Calendar c = new GregorianCalendar();
-    commandSQL cmd = new commandSQL();
+    CommandSQL cmd = new CommandSQL();
     private Scanner scanner = new Scanner(System.in);
     private String c_name;
     private String c_family;
     private String c_address;
 
 
-    public customerManage(ArrayList<customer> customerArray) {
+    public CustomerManager(ArrayList<Customer> customerArray) {
         CustomerArray = customerArray;
     }
 
-    public customerManage() {
+    public CustomerManager() {
     }
 
     public void insertCustomer() {
@@ -64,7 +64,7 @@ public class customerManage {
     public void createCustomerAccount() {
         System.out.println("pls enter customer_id : ");
         int idcustomer = this.scanner.nextInt();
-        customer selected_customer = cmd.select_customer_cmd("idCustomer", " = ", String.valueOf(idcustomer));
+        Customer selected_customer = cmd.select_customer_cmd("idCustomer", " = ", String.valueOf(idcustomer));
 
         HashMap<String, String> hm = new HashMap<>();
         hm.put("idbank_account", String.valueOf(idcustomer) + "" + c.get(Calendar.DAY_OF_YEAR) + "" + c.get(Calendar.HOUR_OF_DAY));

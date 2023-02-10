@@ -1,7 +1,7 @@
-import DB.commandSQL;
-import customersANDaccounts.BankManager;
+import DB.CommandSQL;
+import installments.InstallmentCalculate;
+import loan.LoanManager;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class main {
@@ -24,7 +24,7 @@ public class main {
         //lc.fillLoanData();
 
         Scanner scanner = new Scanner(System.in);
-        commandSQL cmd=new commandSQL();
+        CommandSQL cmd = new CommandSQL();
 
 //        System.out.println(cmd.get_financial_ressource_cmd()) ;
 //        cmd.set_financial_ressource_cmd(2000000d,'+');
@@ -49,12 +49,21 @@ public class main {
 
 //        System.out.println("the Total of interest is :    "+cmd.getTotalInterest()+" Rial");
 
-        BankManager bm=new BankManager();
-        bm.exportExcel();
+
 //        ArrayList<String> transactions = cmd.getTransacitons('A');
 //        for (int i = 0; i <transactions.size() ; i++) {
 //            System.out.println(transactions.get(i));
-//
+
 //        }
+
+        LoanManager lm = new LoanManager();
+        InstallmentCalculate ins = new InstallmentCalculate();
+        ins.setRate(Double.valueOf(lm.getLoanRate()));
+        ins.accountToaccount();
+        ins.fillInstallmentsData();
+
+
+        //  System.out.println(Math.round(Finance.ppmt(((16.5/12)/100), 1, 18, 540000000d) * -1));
+
     }
 }

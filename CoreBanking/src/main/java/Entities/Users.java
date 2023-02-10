@@ -5,15 +5,15 @@ package Entities;
  * @author Mirza
  */
 
-public class users {
+public class Users {
 
     public String name;
     public String family;
     private String kou /*kind_of_user*/;
 
-    public users(){}
+    public Users(){}
 
-    public users(String name, String family, String kou) {
+    public Users(String name, String family, String kou) {
         this.name = name;
         this.family = family;
         this.kou = kou;

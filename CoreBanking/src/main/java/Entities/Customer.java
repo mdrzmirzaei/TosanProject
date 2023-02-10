@@ -1,18 +1,18 @@
 package Entities;
 
-public class customer {
+public class Customer {
     private int idCustomer;
     private String customer_name;
     private String customer_family;
     private String customer_address;
 
-    public customer(int idCustomer, String customer_name, String customer_family, String customer_address) {
+    public Customer(int idCustomer, String customer_name, String customer_family, String customer_address) {
         this.idCustomer = idCustomer;
         this.customer_name = customer_name;
         this.customer_family = customer_family;
         this.customer_address = customer_address;
     }
-        public customer() {
+        public Customer() {
 
     }
 

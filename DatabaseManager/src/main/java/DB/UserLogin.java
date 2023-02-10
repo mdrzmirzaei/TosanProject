@@ -1,13 +1,13 @@
 package DB;
 
-import Entities.users;
+import Entities.Users;
 
 import javax.sql.rowset.CachedRowSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public abstract class userLogin {
-    private static users user = new users();
+public abstract class UserLogin {
+    private static Users user = new Users();
     private static String user_name = "";
     private static String password = "";
 
@@ -20,8 +20,8 @@ public abstract class userLogin {
             System.out.println("please Enter Your User password:");
             password = scanner.nextLine();
 
-            initDB.ConnectOk();
-            CachedRowSet cachedRowSet = initDB.initCachedRowset();
+            InitDB.ConnectOk();
+            CachedRowSet cachedRowSet = InitDB.initCachedRowset();
             cachedRowSet.setCommand("select * from users where user_name =? and user_password =?");
             cachedRowSet.setString(1, user_name);
             cachedRowSet.setString(2, password);
@@ -46,7 +46,7 @@ public abstract class userLogin {
 
                 // initial user details in Object of user
 
-                user = new users(cachedRowSet.getString("person_name"), cachedRowSet.getString("person_family"), cachedRowSet.getString("kind_of_user"));
+                user = new Users(cachedRowSet.getString("person_name"), cachedRowSet.getString("person_family"), cachedRowSet.getString("kind_of_user"));
                 System.out.println(user.getName() + "  " + user.getFamily() + "   " + user.getKou());
 
 
@@ -57,7 +57,7 @@ public abstract class userLogin {
             System.out.println("user not found");
         } finally {
 
-            initDB.releaseDB();
+            InitDB.releaseDB();
         }
 
         return true;
@@ -65,7 +65,7 @@ public abstract class userLogin {
 
     }
 
-    public static users getUser() {
+    public static Users getUser() {
         if (user != null) {
             return user;
         } else return null;

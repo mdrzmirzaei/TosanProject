@@ -1,30 +1,33 @@
 package DB;
 
 import Entities.Transaction;
-import Entities.bank_account;
-import Entities.customer;
-import installments.installments;
+import Entities.BankAccount;
+import Entities.Customer;
+import installments.Installments;
 
 import javax.sql.rowset.CachedRowSet;
 import java.math.BigDecimal;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 
-public class commandSQL implements AutoCloseable {
+public class CommandSQL implements AutoCloseable {
     static Scanner scanner = new Scanner(System.in);
     BigDecimal financial_amount;
-    customer customer = new customer();
-    ArrayList<customer> customerArray = new ArrayList<>();
-    ArrayList<bank_account> bank_accountArray = new ArrayList<>();
-    ArrayList<installments> installmentsArray = new ArrayList<>();
-    private CachedRowSet cachedRowSet = null;
+    Customer customer = new Customer();
+    ArrayList<Customer> customerArray = new ArrayList<>();
+    ArrayList<BankAccount> bankAccountArray = new ArrayList<>();
+    ArrayList<Installments> installmentsArray = new ArrayList<>();
+    public CachedRowSet cachedRowSet = null;
 
 
-    public commandSQL() {
-        initDB.ConnectOk();
-        cachedRowSet = initDB.initCachedRowset();
+    public CommandSQL() {
+        InitDB.ConnectOk();
+        cachedRowSet = InitDB.initCachedRowset();
     }
 
     /*public ArrayList<customer> select_cmd(String tableName, String columnName, String condition, String value) {
@@ -113,7 +116,7 @@ public class commandSQL implements AutoCloseable {
         } catch (SQLException se) {
             System.out.println(se.getMessage());
         } finally {
-            initDB.releaseDB();
+            InitDB.releaseDB();
         }
         return this.financial_amount;
     }
@@ -141,20 +144,20 @@ public class commandSQL implements AutoCloseable {
             return false;
 
         } finally {
-            initDB.releaseDB();
+            InitDB.releaseDB();
         }
         return true;
     }
 
-    public ArrayList<installments> select_installment_cmd(customer Customer) {
+    public ArrayList<Installments> select_installment_cmd(Customer Customer) {
         try {
-            cachedRowSet.setCommand("select * from installments where installments_customer_id = ? and installments_status = 'N' order by installments_months");
+            cachedRowSet.setCommand("select * from installments where installments_customer_id = ? and installments_status = 'F' order by installments_months");
             cachedRowSet.setInt(1, Customer.getIdCustomer());
             cachedRowSet.execute();
             ResultSetMetaData RST = cachedRowSet.getMetaData();
             //to get information about table
             while (cachedRowSet.next()) {
-                installmentsArray.add(new installments(cachedRowSet.getString(1), cachedRowSet.getInt(2), cachedRowSet.getDouble(3), cachedRowSet.getInt(4), cachedRowSet.getDouble(5), cachedRowSet.getString(6).charAt(0), cachedRowSet.getInt(7), cachedRowSet.getInt(8), cachedRowSet.getDate(9)));
+                installmentsArray.add(new Installments(cachedRowSet.getString(1), cachedRowSet.getInt(2), cachedRowSet.getDouble(3), cachedRowSet.getInt(4), cachedRowSet.getDouble(5), cachedRowSet.getString(6).charAt(0), cachedRowSet.getInt(7), cachedRowSet.getInt(8), cachedRowSet.getDate(9)));
                 for (int i = 1; i < RST.getColumnCount(); i++) {
                     System.out.print(cachedRowSet.getString(i) + "   ");
                 }
@@ -167,7 +170,7 @@ public class commandSQL implements AutoCloseable {
             System.out.println(se.getCause());
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -176,8 +179,6 @@ public class commandSQL implements AutoCloseable {
         }
 
         return installmentsArray;
-
-
     }
 
     public boolean select_financial_cmd(String tableName, String columnName, String condition, String value) {
@@ -199,7 +200,7 @@ public class commandSQL implements AutoCloseable {
             System.out.println(se.getCause());
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
 
             } catch (Exception e) {
@@ -212,7 +213,7 @@ public class commandSQL implements AutoCloseable {
 
     }
 
-    public ArrayList<bank_account> select_bank_accounts(String columnName, String condition, String value) {
+    public ArrayList<BankAccount> select_bank_accounts(String columnName, String condition, String value) {
         try {
 
             cachedRowSet.setCommand("select * from bank_account where " + columnName + " " + condition + " ?");
@@ -225,7 +226,7 @@ public class commandSQL implements AutoCloseable {
             ResultSetMetaData RST = cachedRowSet.getMetaData();
             //to get information about table
             while (cachedRowSet.next()) {
-                bank_accountArray.add(new bank_account(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
+                bankAccountArray.add(new BankAccount(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
                 for (int i = 1; i < RST.getColumnCount(); i++) {
                     System.out.print(cachedRowSet.getString(i) + "   ");
                 }
@@ -237,7 +238,7 @@ public class commandSQL implements AutoCloseable {
             System.out.println(se.getCause());
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -245,13 +246,13 @@ public class commandSQL implements AutoCloseable {
             }
         }
 
-        return bank_accountArray;
+        return bankAccountArray;
 
 
     }
 
-    public bank_account select_one_bank_account(String columnName, String condition, String value) {
-        bank_account selected_bank_account = new bank_account();
+    public BankAccount select_one_bank_account(String columnName, String condition, String value) {
+        BankAccount selected_bankAccount = new BankAccount();
 
         try {
             cachedRowSet.setCommand("select * from bank_account where " + columnName + " " + condition + " ?");
@@ -264,19 +265,19 @@ public class commandSQL implements AutoCloseable {
             ResultSetMetaData RST = cachedRowSet.getMetaData();
             //to get information about table
             while (cachedRowSet.next()) {
-                bank_accountArray.add(new bank_account(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
+                bankAccountArray.add(new BankAccount(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
                 for (int i = 1; i < RST.getColumnCount(); i++) {
                     System.out.print(cachedRowSet.getString(i) + "   ");
                 }
                 System.out.println("__");
             }
-            if (bank_accountArray != null) {
+            if (bankAccountArray != null) {
                 System.out.println("find Bank Account!!!");
                 System.out.println("please select acccount :");
                 int sel = scanner.nextInt();
-                for (int i = 0; i < bank_accountArray.size(); i++) {
-                    if (bank_accountArray.get(i).getIdbank_acocunt() == sel) {
-                        selected_bank_account = bank_accountArray.get(i);
+                for (int i = 0; i < bankAccountArray.size(); i++) {
+                    if (bankAccountArray.get(i).getIdbank_acocunt() == sel) {
+                        selected_bankAccount = bankAccountArray.get(i);
                     }
                 }
             }
@@ -286,7 +287,7 @@ public class commandSQL implements AutoCloseable {
             System.out.println(se.getCause());
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -294,12 +295,12 @@ public class commandSQL implements AutoCloseable {
             }
         }
 
-        return selected_bank_account;
+        return selected_bankAccount;
 
 
     }
 
-    public customer select_customer_cmd(String columnName, String condition, String value) {
+    public Customer select_customer_cmd(String columnName, String condition, String value) {
         try {
 
             cachedRowSet.setCommand("select * from customer where " + columnName + " " + condition + " ?");
@@ -314,7 +315,7 @@ public class commandSQL implements AutoCloseable {
             ResultSetMetaData RST = cachedRowSet.getMetaData();
             if (cachedRowSet.next()) {
 
-                customer = new customer(cachedRowSet.getInt("idCustomer"), cachedRowSet.getString("customer_name"), cachedRowSet.getString("customer_family"), cachedRowSet.getString("customer_address"));
+                customer = new Customer(cachedRowSet.getInt("idCustomer"), cachedRowSet.getString("customer_name"), cachedRowSet.getString("customer_family"), cachedRowSet.getString("customer_address"));
                 for (int i = 1; i < RST.getColumnCount(); i++) {
                     System.out.print(cachedRowSet.getString(i) + "   ");
                 }
@@ -324,7 +325,7 @@ public class commandSQL implements AutoCloseable {
             System.out.println(se.getMessage());
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
 
             } catch (Exception e) {
@@ -372,7 +373,7 @@ public class commandSQL implements AutoCloseable {
             return false;
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -446,7 +447,7 @@ public class commandSQL implements AutoCloseable {
             return false;
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -508,7 +509,7 @@ public class commandSQL implements AutoCloseable {
             return false;
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -562,7 +563,7 @@ public class commandSQL implements AutoCloseable {
             return false;
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -581,14 +582,14 @@ public class commandSQL implements AutoCloseable {
                     cachedRowSet.setCommand("select * from transaction order by idtransaction desc limit 5");
                     cachedRowSet.execute();
                     while (cachedRowSet.next()) {
-                        transactionsList.add(new Transaction(cachedRowSet.getInt(1),cachedRowSet.getDate(2),cachedRowSet.getTime(3),cachedRowSet.getBigDecimal(4),cachedRowSet.getString(5).charAt(0),cachedRowSet.getInt(6),cachedRowSet.getInt(7),cachedRowSet.getInt(8),cachedRowSet.getString(9)));
+                        transactionsList.add(new Transaction(cachedRowSet.getInt(1), cachedRowSet.getDate(2), cachedRowSet.getTime(3), cachedRowSet.getBigDecimal(4), cachedRowSet.getString(5).charAt(0), cachedRowSet.getInt(6), cachedRowSet.getInt(7), cachedRowSet.getInt(8), cachedRowSet.getString(9)));
                     }
                 } catch (SQLException se) {
                     System.out.println(se.getMessage());
                     System.out.println(se.getCause());
                     return null;
                 } finally {
-                    initDB.releaseDB();
+                    InitDB.releaseDB();
                 }
                 break;
             }
@@ -599,14 +600,14 @@ public class commandSQL implements AutoCloseable {
                     cachedRowSet.execute();
                     transactionsList.add(new Transaction());
                     while (cachedRowSet.next()) {
-                        transactionsList.add(new Transaction(cachedRowSet.getInt(1),cachedRowSet.getDate(2),cachedRowSet.getTime(3),cachedRowSet.getBigDecimal(4),cachedRowSet.getString(5).charAt(0), cachedRowSet.getInt(6),cachedRowSet.getInt(7),cachedRowSet.getInt(8),cachedRowSet.getString(9)));
+                        transactionsList.add(new Transaction(cachedRowSet.getInt(1), cachedRowSet.getDate(2), cachedRowSet.getTime(3), cachedRowSet.getBigDecimal(4), cachedRowSet.getString(5).charAt(0), cachedRowSet.getInt(6), cachedRowSet.getInt(7), cachedRowSet.getInt(8), cachedRowSet.getString(9)));
                     }
                 } catch (SQLException se) {
                     System.out.println(se.getMessage());
                     System.out.println(se.getCause());
                     return null;
                 } finally {
-                    initDB.releaseDB();
+                    InitDB.releaseDB();
 
                 }
                 break;
@@ -616,16 +617,17 @@ public class commandSQL implements AutoCloseable {
         return transactionsList;
     }
 
+
     @Override
     public void close() throws Exception {
         try {
-            initDB.releaseDB();
+            InitDB.releaseDB();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
         } finally {
             try {
-                initDB.releaseDB();
+                InitDB.releaseDB();
                 cachedRowSet.close();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
