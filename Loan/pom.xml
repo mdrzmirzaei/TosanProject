@@ -4,39 +4,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <parent>
+        <groupId>ir.mdrz</groupId>
+        <artifactId>TosanProject</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+
+    </parent>
+
+
     <artifactId>Loan</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <dependencies>
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>ir.mdrz</groupId>
             <artifactId>CoreBanking</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
+            <scope>compile</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>ir.mdrz</groupId>
             <artifactId>DatabaseManager</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
+            <scope>compile</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.24</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>4.1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>4.1.2</version>
-        </dependency>
+
     </dependencies>
+
 
     <build>
         <pluginManagement>
@@ -83,6 +80,7 @@
             </plugins>
         </pluginManagement>
     </build>
+
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
