@@ -1,5 +1,6 @@
 package DB;
 
+import Entities.Transaction;
 import Entities.bank_account;
 import Entities.customer;
 import installments.installments;
@@ -8,21 +9,17 @@ import javax.sql.rowset.CachedRowSet;
 import java.math.BigDecimal;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class commandSQL implements AutoCloseable {
+    static Scanner scanner = new Scanner(System.in);
+    BigDecimal financial_amount;
     customer customer = new customer();
-    Scanner scanner = new Scanner(System.in);
-    private CachedRowSet cachedRowSet = null;
     ArrayList<customer> customerArray = new ArrayList<>();
     ArrayList<bank_account> bank_accountArray = new ArrayList<>();
     ArrayList<installments> installmentsArray = new ArrayList<>();
-
-    BigDecimal financial_amount;
+    private CachedRowSet cachedRowSet = null;
 
 
     public commandSQL() {
@@ -70,6 +67,84 @@ public class commandSQL implements AutoCloseable {
 }
 
  */
+
+    public Double getTotalInterest() {
+        try {
+            cachedRowSet.setCommand("select sum(installments.installments_interest) SumOfInterest from installments where installments.installments_status='T'");
+            cachedRowSet.execute();
+            if (cachedRowSet.next()) {
+                return cachedRowSet.getDouble("SumOfInterest");
+            } else return null;
+
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+            System.out.println(se.getCause());
+            return null;
+        }
+    }
+
+    public BigDecimal get_financial_ressource_cmd() {
+        try {
+            cachedRowSet.setCommand("select financial_amount from financial_ressource");
+            cachedRowSet.execute();
+
+            if (cachedRowSet.next()) {
+                this.financial_amount = cachedRowSet.getBigDecimal("financial_amount");
+            }
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+        }
+        return this.financial_amount;
+    }
+
+    public BigDecimal set_financial_ressource_cmd(Double financialAmount, char oprator) {
+        try {
+            cachedRowSet.setCommand("update financial_ressource set financial_amount =" + get_financial_ressource_cmd() + " " + oprator + " ?");
+            cachedRowSet.setString(1, financialAmount.toString());
+            cachedRowSet.execute();
+
+            cachedRowSet.setCommand("select financial_amount from financial_ressource");
+            cachedRowSet.execute();
+
+            if (cachedRowSet.next()) {
+                this.financial_amount = cachedRowSet.getBigDecimal("financial_amount");
+                System.out.println("new Amount of financial is " + financial_amount);
+            }
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+        } finally {
+            initDB.releaseDB();
+        }
+        return this.financial_amount;
+    }
+
+    public Boolean setLoanRate(double Rate) {
+
+        try {
+
+            cachedRowSet.setCommand("select loanRate from loan");
+            cachedRowSet.execute();
+            if (cachedRowSet.next()) {
+                Double ss = cachedRowSet.getDouble("loanRate");
+                System.out.println("Rate of loan is : " + cachedRowSet.getDouble("loanRate"));
+            }
+            System.out.println("if do you want change it press 1(number) key and then enter new rate");
+
+            ;
+            if (scanner.nextInt() == 1) {
+                this.update_cmd("loan", 1, "loanRate", String.valueOf(Rate));
+            }
+
+        } catch (SQLException e) {
+            e.getMessage();
+            e.getCause();
+            return false;
+
+        } finally {
+            initDB.releaseDB();
+        }
+        return true;
+    }
 
     public ArrayList<installments> select_installment_cmd(customer Customer) {
         try {
@@ -391,7 +466,7 @@ public class commandSQL implements AutoCloseable {
                     columnId = "idCustomer";
                     break;
                 }
-                case "Loan": {
+                case "loan": {
                     columnId = "idLoan";
                     break;
                 }
@@ -403,7 +478,6 @@ public class commandSQL implements AutoCloseable {
                     columnId = "idfinancial_ressource_id";
                     break;
                 }
-
                 case "installments": {
                     columnId = "installments_status";
                     break;
@@ -498,40 +572,48 @@ public class commandSQL implements AutoCloseable {
 
     }
 
-    public BigDecimal get_financial_ressource_cmd() {
-        try {
-            cachedRowSet.setCommand("select financial_amount from financial_ressource");
-            cachedRowSet.execute();
+    public ArrayList<Transaction> getTransacitons(char select /* (A or F) all or five records*/) {
+        ArrayList<Transaction> transactionsList = new ArrayList<>();
 
-            if (cachedRowSet.next()) {
-                this.financial_amount = cachedRowSet.getBigDecimal("financial_amount");
+        switch (select) {
+            case 'F': {
+                try {
+                    cachedRowSet.setCommand("select * from transaction order by idtransaction desc limit 5");
+                    cachedRowSet.execute();
+                    while (cachedRowSet.next()) {
+                        transactionsList.add(new Transaction(cachedRowSet.getInt(1),cachedRowSet.getDate(2),cachedRowSet.getTime(3),cachedRowSet.getBigDecimal(4),cachedRowSet.getString(5).charAt(0),cachedRowSet.getInt(6),cachedRowSet.getInt(7),cachedRowSet.getInt(8),cachedRowSet.getString(9)));
+                    }
+                } catch (SQLException se) {
+                    System.out.println(se.getMessage());
+                    System.out.println(se.getCause());
+                    return null;
+                } finally {
+                    initDB.releaseDB();
+                }
+                break;
             }
-        } catch (SQLException se) {
-            System.out.println(se.getMessage());
-        }
-        return financial_amount;
-    }
 
-    public BigDecimal set_financial_ressource_cmd(Double financialAmount, char operatoe) {
-        try {
-            cachedRowSet.setCommand("update financial_ressource set financial_amount =" + get_financial_ressource_cmd() + " " + operatoe + " ?");
-            cachedRowSet.setString(1, financialAmount.toString());
-            cachedRowSet.execute();
+            case 'A': {
+                try {
+                    cachedRowSet.setCommand("select * from transaction order by idtransaction desc");
+                    cachedRowSet.execute();
+                    transactionsList.add(new Transaction());
+                    while (cachedRowSet.next()) {
+                        transactionsList.add(new Transaction(cachedRowSet.getInt(1),cachedRowSet.getDate(2),cachedRowSet.getTime(3),cachedRowSet.getBigDecimal(4),cachedRowSet.getString(5).charAt(0), cachedRowSet.getInt(6),cachedRowSet.getInt(7),cachedRowSet.getInt(8),cachedRowSet.getString(9)));
+                    }
+                } catch (SQLException se) {
+                    System.out.println(se.getMessage());
+                    System.out.println(se.getCause());
+                    return null;
+                } finally {
+                    initDB.releaseDB();
 
-            cachedRowSet.setCommand("select financial_amount from financial_ressource");
-            cachedRowSet.execute();
-
-            if (cachedRowSet.next()) {
-                this.financial_amount = cachedRowSet.getBigDecimal("financial_amount");
-                System.out.println("new Amount of financial is "+ financial_amount);
+                }
+                break;
             }
-        } catch (SQLException se) {
-            System.out.println(se.getMessage());
+
         }
-        finally {
-            initDB.releaseDB();
-        }
-        return this.financial_amount;
+        return transactionsList;
     }
 
     @Override
@@ -551,6 +633,8 @@ public class commandSQL implements AutoCloseable {
             }
         }
     }
+
+
 }
 
 

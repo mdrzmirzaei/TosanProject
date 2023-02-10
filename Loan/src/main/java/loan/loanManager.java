@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 
 
 public class loanManager {
-commandSQL cmd=new commandSQL();
+    commandSQL cmd = new commandSQL();
 
-    public Boolean loanRequest(BigDecimal Amount, int monthsToPay) {
+    public Boolean  loanRequest(BigDecimal Amount, int monthsToPay) {
         if (cmd.select_financial_cmd("financial_ressource", "financial_amount", ">=", Amount.toString())) {
             System.out.println("you can get the loan");
             return true;
@@ -16,6 +16,5 @@ commandSQL cmd=new commandSQL();
             System.out.println("you can not Get Loan!!!");
             return false;
         }
-
     }
 }
