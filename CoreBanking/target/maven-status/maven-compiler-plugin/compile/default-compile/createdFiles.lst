@@ -1,0 +1,12 @@
+CoreBankingManager\BankAccountManager.class
+CoreBankingManager\BankManager.class
+Entities\BankAccount.class
+Entities\TransactionsInterface.class
+CoreBankingManager\BankManager$ThreadRun.class
+CoreBankingManager\CustomerManager.class
+CoreBankingManager\UserLogin.class
+CoreBankingManager\CommandSQL.class
+Entities\Installments.class
+Entities\Users.class
+Entities\Customer.class
+Entities\Transaction.class

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c926db61-df9d-4ee8-a5ce-c049bd61d17f" name="Changes" comment="add some feature for manager...">
+      <change afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/BankAccountManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/UserLogin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentCalculate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentPayment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/src/main/resources/META-INF/maven/archetype.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/src/main/resources/archetype-resources/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/src/main/resources/archetype-resources/src/test/java/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/customersANDaccounts/BankAccountManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/customersANDaccounts/BankManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/BankManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/customersANDaccounts/CustomerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CustomerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Transaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/bank_account.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/transactions.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/users.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/users.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/customersANDaccounts/BankManager$ThreadRun.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/customersANDaccounts/BankManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/customersANDaccounts/bankAccountManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/customersANDaccounts/customerManage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DB/CommandSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DB/ConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/src/main/java/DatabaseManager/ConnectionPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DB/InitDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/src/main/java/DatabaseManager/InitDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DB/UserLogin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/commandSQL.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/connectionPool.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/initDB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$bank_account.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$currency.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$dateTime.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$loan.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/userLogin.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/installments/InstallmentCalculate.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/installments/InstallmentPayment.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/installments/Installments.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/Entities/Installments.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/installments/InstallmentsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/loan/LoanManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/LoanManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/installments/installmentCalculate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/installments/installmentPayment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/installments/installments.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/installments/installmentsManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/loan/loanManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/Main.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="C:\Users\Mirza\.m2\repository" />
+        <option name="mavenHome" value="C:/Program Files/JetBrains/IntelliJ IDEA 2020.2.3/plugins/maven/lib/maven3" />
+        <option name="outputLevel" value="DEBUG" />
+        <option name="useMavenConfig" value="true" />
+        <option name="userSettingsFile" value="C:\Users\Mirza\.m2\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2KXYadbbViIFS4HekPqFnGZOtTO" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "E:/Projects/TosanProject/Main/src",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Projects\TosanProject\Main" />
+      <recent name="E:\Projects\TosanProject\DatabaseManager\src\main\resources" />
+      <recent name="E:\Projects\TosanProject\DatabaseManager\src\main" />
+      <recent name="E:\Projects\TosanProject\DatabaseManager" />
+      <recent name="E:\Projects\TosanProject\DatabaseManager\src" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn package" />
+      <command value="mvn clean" />
+      <command value="mvn install" />
+      <command value="mvn clean package" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Project" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Main" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Main/src" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c926db61-df9d-4ee8-a5ce-c049bd61d17f" name="Changes" comment="" />
+      <created>1674122461567</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674122461567</updated>
+      <workItem from="1674122465569" duration="1536000" />
+      <workItem from="1674199707858" duration="6731000" />
+      <workItem from="1674715900372" duration="6259000" />
+      <workItem from="1675422306749" duration="22939000" />
+    </task>
+    <task id="LOCAL-00001" summary="mirza Test">
+      <created>1674122532859</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1674122532859</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add mySQL dependency in pom file">
+      <created>1674805039991</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1674805039991</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add some feature for manager...">
+      <created>1675932809259</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1675932809259</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add some feature for manager...">
+      <created>1676047966727</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676047966727</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="mirza Test" />
+    <MESSAGE value="add mySQL dependency in pom file" />
+    <MESSAGE value="add some feature for manager..." />
+    <option name="LAST_COMMIT_MESSAGE" value="add some feature for manager..." />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
