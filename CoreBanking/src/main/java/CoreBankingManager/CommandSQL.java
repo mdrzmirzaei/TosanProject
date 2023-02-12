@@ -19,55 +19,51 @@ import java.util.Scanner;
 
 public class CommandSQL implements AutoCloseable {
     static Scanner scanner = new Scanner(System.in);
+    public CachedRowSet cachedRowSet;
     BigDecimal financial_amount;
     Customer customer = new Customer();
     ArrayList<Customer> customerArray = new ArrayList<>();
     ArrayList<BankAccount> bankAccountArray = new ArrayList<>();
     ArrayList<Installments> installmentsArray = new ArrayList<>();
-    public CachedRowSet cachedRowSet;
 
 
     public CommandSQL() {
         try {
             InitDB.ConnectOk();
             cachedRowSet = InitDB.initCachedRowset();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
         }
     }
 
     public ArrayList<Customer> selectAllCustomer() {
-    try {
-
-        cachedRowSet.setCommand("select * from customer");
-        cachedRowSet.execute();
-        //to get information about table
-        ResultSetMetaData RST = cachedRowSet.getMetaData();
-        while (cachedRowSet.next()) {
-            new Customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4));
-            customerArray.add(new Customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
-        }
-
-    } catch (SQLException se) {
-        System.out.println(se.getMessage());
-        System.out.println(se.getCause());
-    }
-    finally {
         try {
-            InitDB.releaseDB();
+
+            cachedRowSet.setCommand("select * from customer");
+            cachedRowSet.execute();
+            //to get information about table
+            ResultSetMetaData RST = cachedRowSet.getMetaData();
+            while (cachedRowSet.next()) {
+                new Customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4));
+                customerArray.add(new Customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
+            }
+
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+            System.out.println(se.getCause());
+        } finally {
+            try {
+                InitDB.releaseDB();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println(e.getCause());
+            }
         }
-        catch(Exception e ){
-            System.out.println(e.getMessage());
-            System.out.println(e.getCause());
-        }
+
+        return customerArray;
+
     }
-
-    return customerArray;
-
-}
-
 
 
     public Double getTotalInterest() {
@@ -250,7 +246,7 @@ public class CommandSQL implements AutoCloseable {
 
     }
 
-    public BankAccount select_one_bank_account(ArrayList<BankAccount> bankAccountsArray,String bankAccountId) {
+    public BankAccount select_one_bank_account(ArrayList<BankAccount> bankAccountsArray, String bankAccountId) {
         BankAccount selected_bankAccount = new BankAccount();
 
         try {
@@ -278,54 +274,53 @@ public class CommandSQL implements AutoCloseable {
     }
 
 
+    /*   cachedRowSet.setCommand("select * from bank_account where " + columnName + " " + condition + " ?");
+       if (columnName.contains("id")) {
+           cachedRowSet.setInt(1, Integer.valueOf(value));
+       } else {
+           cachedRowSet.setString(1, value);
+       }
+       cachedRowSet.execute();
+       ResultSetMetaData RST = cachedRowSet.getMetaData();
+       //to get information about table
+       while (cachedRowSet.next()) {
+           bankAccountArray.add(new BankAccount(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
+           for (int i = 1; i < RST.getColumnCount(); i++) {
+               System.out.print(cachedRowSet.getString(i) + "   ");
+           }
+           System.out.println("__");
+       }
+       if (bankAccountArray != null) {
+           System.out.println("find Bank Account!!!");
+           System.out.println("please select acccount :");
+           int sel = scanner.nextInt();
+           for (int i = 0; i < bankAccountArray.size(); i++) {
+               if (bankAccountArray.get(i).getIdbank_acocunt() == sel) {
+                   selected_bankAccount = bankAccountArray.get(i);
+               }
+           }
+       }
 
-         /*   cachedRowSet.setCommand("select * from bank_account where " + columnName + " " + condition + " ?");
-            if (columnName.contains("id")) {
-                cachedRowSet.setInt(1, Integer.valueOf(value));
-            } else {
-                cachedRowSet.setString(1, value);
-            }
-            cachedRowSet.execute();
-            ResultSetMetaData RST = cachedRowSet.getMetaData();
-            //to get information about table
-            while (cachedRowSet.next()) {
-                bankAccountArray.add(new BankAccount(cachedRowSet.getInt(1), cachedRowSet.getBigDecimal(2), cachedRowSet.getString(3).charAt(0), cachedRowSet.getInt(4)));
-                for (int i = 1; i < RST.getColumnCount(); i++) {
-                    System.out.print(cachedRowSet.getString(i) + "   ");
-                }
-                System.out.println("__");
-            }
-            if (bankAccountArray != null) {
-                System.out.println("find Bank Account!!!");
-                System.out.println("please select acccount :");
-                int sel = scanner.nextInt();
-                for (int i = 0; i < bankAccountArray.size(); i++) {
-                    if (bankAccountArray.get(i).getIdbank_acocunt() == sel) {
-                        selected_bankAccount = bankAccountArray.get(i);
-                    }
-                }
-            }
+   } catch (SQLException se) {
+       System.out.println(se.getMessage());
+       System.out.println(se.getCause());
+   } finally {
+       try {
+           InitDB.releaseDB();
+           cachedRowSet.close();
+       } catch (Exception e) {
+           System.out.println(e.getMessage());
+           System.out.println(e.getCause());
+       }
+   }
 
-        } catch (SQLException se) {
-            System.out.println(se.getMessage());
-            System.out.println(se.getCause());
-        } finally {
-            try {
-                InitDB.releaseDB();
-                cachedRowSet.close();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                System.out.println(e.getCause());
-            }
-        }
-
-        return selected_bankAccount;
-
-
-    }
+   return selected_bankAccount;
 
 
-          */
+}
+
+
+     */
     public Customer select_customer_cmd(String columnName, String condition, String value) {
         try {
 
@@ -345,8 +340,7 @@ public class CommandSQL implements AutoCloseable {
                 for (int i = 1; i < RST.getColumnCount(); i++) {
                     System.out.print(cachedRowSet.getString(i) + "   ");
                 }
-            }
-            else
+            } else
                 return null;
         } catch (SQLException se) {
             System.out.println(se.getMessage());
@@ -645,27 +639,48 @@ public class CommandSQL implements AutoCloseable {
         return transactionsList;
     }
 
+    public HashMap<String,String> getTotalInterests() {
+        HashMap<String,String> hm=new HashMap<>();
 
-    @Override
-    public void close() throws Exception {
         try {
-            InitDB.releaseDB();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println(e.getCause());
-        } finally {
-            try {
-                InitDB.releaseDB();
-                cachedRowSet.close();
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                System.out.println(e.getCause());
+            cachedRowSet.setCommand("select installments_customer_id,sum(installments_interest) from installments where installments_status='T' group by installments_customer_id");
+            cachedRowSet.execute();
+            while (cachedRowSet.next()) {
+                hm.put(cachedRowSet.getString(1),cachedRowSet.getString(2));
             }
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
+            System.out.println(se.getCause());
+            return null;
+        } finally {
+            InitDB.releaseDB();
         }
-    }
-
-
+        return hm;
 }
+
+
+
+
+@Override
+public void close()throws Exception{
+        try{
+        InitDB.releaseDB();
+        }catch(Exception e){
+        System.out.println(e.getMessage());
+        System.out.println(e.getCause());
+        }finally{
+        try{
+        InitDB.releaseDB();
+        cachedRowSet.close();
+        }catch(Exception e){
+        System.out.println(e.getMessage());
+        System.out.println(e.getCause());
+        }
+        }
+        }
+
+
+        }
 
 
 

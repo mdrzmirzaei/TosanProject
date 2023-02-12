@@ -1,4 +1,4 @@
-import UI.LoginForm;
+import UI.TosanProject;
 
 public class Main {
 
@@ -60,7 +60,7 @@ public class Main {
 
 
         //  System.out.println(Math.round(Finance.ppmt(((16.5/12)/100), 1, 18, 540000000d) * -1));
-        new LoginForm();
+        new TosanProject();
 
     }
 }

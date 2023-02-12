@@ -1,12 +1,10 @@
 package UI;
 
-import CoreBankingManager.BankAccountManager;
-import CoreBankingManager.CommandSQL;
-import CoreBankingManager.CustomerManager;
-import CoreBankingManager.UserLogin;
+import CoreBankingManager.*;
 import Entities.BankAccount;
 import Entities.Customer;
 import Entities.Installments;
+import Entities.Transaction;
 import LoanManager.InstallmentCalculate;
 import LoanManager.InstallmentPayment;
 import LoanManager.LoanManager;
@@ -17,9 +15,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class LoginForm extends JFrame {
+public class TosanProject extends JFrame {
 
     CustomerManager customerManager = new CustomerManager();
     Customer customerSwing = new Customer();
@@ -39,7 +39,6 @@ public class LoginForm extends JFrame {
     private JButton editcusotmer;
     private JButton deleteCustomer;
     private JButton ShowCustomers;
-    private JPanel Manager;
     private JPanel Customer;
     private JPanel CustomercCreate;
     private JTextField customer_name;
@@ -103,17 +102,34 @@ public class LoginForm extends JFrame {
     private JTextField IU_installment_sumOfAmount;
     private JTextField IU_installment_countofinstallments;
     private JTable depsitinstallments;
+    private JTabbedPane Manager;
+    private JPanel ShowBankresource;
+    private JTextField bankresource;
+    private JTextField rate;
+    private JButton showresource;
+    private JButton editresource;
+    private JButton editrate;
+    private JButton fivetransaction;
+    private JScrollPane jscrollpane;
+    private JTable five;
+    private JPanel fiveLast;
+    private JPanel fullReport;
+    private JPanel Excel;
+    private JButton fullreportinterest;
+    private JScrollPane scroll;
+    private JTable fullInterest;
+    private JButton excel;
     private char kou;
 
 
-    public LoginForm() {
+    public TosanProject() {
 
         setContentPane(Main);
         Main.setBackground(Color.DARK_GRAY);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1027, 768);
         setResizable(false);
-        setLocation(512, 381);
+        setLocation(100, 100);
         setTitle("پروژه توسن - ورژن 1.0");
         userl.setText("نام کاربری");
         userl.setForeground(Color.WHITE);
@@ -143,12 +159,17 @@ public class LoginForm extends JFrame {
         createLoan.setBackground(Color.DARK_GRAY);
         showinstallments.setBackground(Color.DARK_GRAY);
         giveainstallments.setBackground(Color.DARK_GRAY);
+        Manager.setVisible(false);
+        ShowBankresource.setBackground(Color.DARK_GRAY);
+        fiveLast.setBackground(Color.DARK_GRAY);
 
 
         tabbedPane1.setVisible(false);
         Loan.setVisible(false);
         BankAccount.setVisible(false);
         Customer.setVisible(false);
+        ShowBankresource.setVisible(false);
+
 
 
         currncy.addItem("ریال");
@@ -168,6 +189,7 @@ public class LoginForm extends JFrame {
                     Loan.setVisible(true);
                     BankAccount.setVisible(true);
                     Customer.setVisible(true);
+                    Manager.setVisible(false);
 
                 }
                 if (UserLogin.getUser().getKou() == 'M') {
@@ -175,6 +197,7 @@ public class LoginForm extends JFrame {
                     Loan.setVisible(false);
                     BankAccount.setVisible(false);
                     Customer.setVisible(false);
+                    Manager.setVisible(true);
 
                 }
                 Login.setVisible(Boolean.FALSE);
@@ -458,6 +481,100 @@ public class LoginForm extends JFrame {
                     }
 
                 }
+            }
+        });
+        showresource.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                bankresource.setText(String.valueOf(cmd.get_financial_ressource_cmd()));
+                rate.setText(String.valueOf(loanManager.getLoanRate()));
+
+
+            }
+        });
+        editresource.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (bankresource!= null)
+                cmd.update_cmd("financial_ressource",1,"financial_amount",bankresource.getText());
+            }
+        });
+        editrate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (rate!= null)
+                cmd.update_cmd("loan",1,"loanRate",rate.getText());
+            }
+        });
+        fivetransaction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (five.getRowCount() == 0) {
+                    DefaultTableModel model = new DefaultTableModel();
+                    ArrayList<Transaction> fiveLastarray = new ArrayList<>();
+                    fiveLastarray= cmd.getTransacitons('F');
+
+                    Object[] ColumnsName = new Object[5];
+                    ColumnsName[0] = "تاریخ تراکنش";
+                    ColumnsName[1] = "ساعت تراکنش";
+                    ColumnsName[2] = "مبلغ تراکنش";
+                    ColumnsName[3] = "وضعیت تراکنش";
+                    ColumnsName[4] = "نوع تراکنش";
+
+                    model.setColumnIdentifiers(ColumnsName);
+                    Object[] rowData = new Object[5];
+
+                    for (int i = 0; i < fiveLastarray.size(); i++) {
+
+                        rowData[0] = fiveLastarray.get(i).getTransaction_date();
+                        rowData[1] = fiveLastarray.get(i).getTransaction_time();
+                        rowData[2] = fiveLastarray.get(i).getTransaction_amount();
+                        rowData[3] = fiveLastarray.get(i).getTransaction_amount();
+                        rowData[4] = fiveLastarray.get(i).getKind_of_transaction();
+                        model.addRow(rowData);
+                    }
+                    five.setModel(model);
+                }
+            }
+        });
+        fullreportinterest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (fullInterest.getRowCount() == 0) {
+                    DefaultTableModel model = new DefaultTableModel();
+                    HashMap<String, String> hm = new HashMap<>();
+                    hm = cmd.getTotalInterests();
+
+
+                    Object[] ColumnsName = new Object[2];
+                    ColumnsName[0] = "شاسه مشتری";
+                    ColumnsName[1] = "جمع سود بانک";
+
+
+                    model.setColumnIdentifiers(ColumnsName);
+                    Object[] rowData = new Object[2];
+
+
+                    for (Map.Entry me : hm.entrySet()
+                    ) {
+                        rowData[0] = me.getKey().toString();
+                        rowData[1] = me.getValue().toString();
+                        model.addRow(rowData);
+                    }
+                    fullInterest.setModel(model);
+                }
+            }
+        });
+
+        excel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BankManager bankManager=new BankManager();
+                bankManager.exportExcel();
+                JOptionPane.showMessageDialog(null,"تولید فایل خروجی در حال انجام است می توانید پس از آن به دسکتاپ رفته و فایل را مشاهده کنید");
             }
         });
     }

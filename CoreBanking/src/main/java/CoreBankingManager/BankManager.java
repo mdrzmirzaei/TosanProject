@@ -39,29 +39,32 @@ public class BankManager {
         ArrayList<Transaction> transactionList = cmd.getTransacitons('A');
 
         int threadCount = 4;
-        int patitionSize = threadCount;
+        int partitionSize = threadCount;
         if (threadCount > transactionList.size())
-            patitionSize = transactionList.size();
+            partitionSize = transactionList.size();
 
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
 
-        for (int i = 0; i < transactionList.size(); i++) {
-            int partition = transactionList.size() / patitionSize;
-            int from = i * transactionList.size();
-            int to = from + transactionList.size();
+        for (int i = 0; i < threadCount; i++) {
+            int partition = transactionList.size() / partitionSize;
+            int from = i * partition;
+            int to = from + partition;
             executorService.submit(new ThreadRun(from, to, transactionList));
         }
+
         executorService.shutdown();
 
 
         try {
 
             executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-            FileOutputStream fos = new FileOutputStream(new File(System.getProperty("user.dir") + "\\Report.xlsx"));
+            System.out.println( System.getProperty("user.home") +"\\Desktop\\Report.xlsx");
+            FileOutputStream fos = new FileOutputStream(new File( System.getProperty("user.home") +"/Desktop\\Report.xlsx"));
 
 
             workbook.write(fos);
             fos.close();
+
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
