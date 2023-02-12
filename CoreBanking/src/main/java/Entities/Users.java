@@ -9,11 +9,11 @@ public class Users {
 
     public String name;
     public String family;
-    private String kou /*kind_of_user*/;
+    private char kou /*kind_of_user*/;
 
     public Users(){}
 
-    public Users(String name, String family, String kou) {
+    public Users(String name, String family, char kou) {
         this.name = name;
         this.family = family;
         this.kou = kou;
@@ -27,7 +27,7 @@ public class Users {
         this.family = family;
     }
 
-    public void setKou(String kou) {
+    public void setKou(char kou) {
         this.kou = kou;
     }
 
@@ -39,7 +39,7 @@ public class Users {
         return family;
     }
 
-    public String getKou() {
+    public char getKou() {
         return kou;
     }
 }

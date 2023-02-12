@@ -5,58 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c926db61-df9d-4ee8-a5ce-c049bd61d17f" name="Changes" comment="add some feature for manager...">
-      <change afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/BankAccountManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/UserLogin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentCalculate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentPayment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main/src/main/resources/META-INF/maven/archetype.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main/src/main/resources/archetype-resources/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main/src/main/resources/archetype-resources/src/main/java/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main/src/main/resources/archetype-resources/src/test/java/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/customersANDaccounts/BankAccountManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/customersANDaccounts/BankManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/BankManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/customersANDaccounts/CustomerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CustomerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/bank_account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/transactions.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/users.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/users.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/customersANDaccounts/BankManager$ThreadRun.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/customersANDaccounts/BankManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/customersANDaccounts/bankAccountManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/customersANDaccounts/customerManage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DB/CommandSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DB/ConnectionPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/src/main/java/DatabaseManager/ConnectionPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DB/InitDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/src/main/java/DatabaseManager/InitDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DB/UserLogin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/commandSQL.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/connectionPool.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/initDB.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$bank_account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$currency.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$customer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$dateTime.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables$loan.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/tables.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DB/userLogin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/installments/InstallmentCalculate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/installments/InstallmentPayment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/installments/Installments.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/Entities/Installments.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/installments/InstallmentsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentsManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/loan/LoanManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/LoanManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/installments/installmentCalculate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/installments/installmentPayment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/installments/installments.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/installments/installmentsManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/loan/loanManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.form" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CustomerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CustomerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/UserLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/Entities/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/Entities/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/CoreBanking-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/CoreBanking-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/UserLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/UserLogin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/DatabaseManager-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/DatabaseManager-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/Loan-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/Loan-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Main/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,11 +50,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="localRepository" value="C:\Users\Mirza\.m2\repository" />
-        <option name="mavenHome" value="C:/Program Files/JetBrains/IntelliJ IDEA 2020.2.3/plugins/maven/lib/maven3" />
         <option name="outputLevel" value="DEBUG" />
-        <option name="useMavenConfig" value="true" />
-        <option name="userSettingsFile" value="C:\Users\Mirza\.m2\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -102,25 +65,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "E:/Projects/TosanProject/Main/src",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\Projects\TosanProject\Main" />
@@ -138,7 +89,20 @@
       <command value="mvn clean package" />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Project">
+    <configuration name="LoginForm" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="UI.LoginForm" />
+      <module name="Main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="UI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Project" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Main" />
@@ -147,6 +111,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LoginForm" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -160,6 +129,9 @@
       <workItem from="1674199707858" duration="6731000" />
       <workItem from="1674715900372" duration="6259000" />
       <workItem from="1675422306749" duration="22939000" />
+      <workItem from="1676072905888" duration="78000" />
+      <workItem from="1676095682484" duration="590000" />
+      <workItem from="1676125633559" duration="36836000" />
     </task>
     <task id="LOCAL-00001" summary="mirza Test">
       <created>1674122532859</created>
@@ -205,6 +177,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
@@ -212,6 +185,27 @@
     <MESSAGE value="add mySQL dependency in pom file" />
     <MESSAGE value="add some feature for manager..." />
     <option name="LAST_COMMIT_MESSAGE" value="add some feature for manager..." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CustomerManager.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java</url>
+          <line>196</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.sun.rowset.CachedRowSetImpl" memberName="listeners" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

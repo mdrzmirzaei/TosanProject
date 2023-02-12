@@ -38,25 +38,16 @@ public class CommandSQL implements AutoCloseable {
         }
     }
 
-    public ArrayList<Customer> select_cmd(String tableName, String columnName, String condition, String value) {
+    public ArrayList<Customer> selectAllCustomer() {
     try {
 
-        cachedRowSet.setCommand("select * from " + tableName + " where " + columnName + " " + condition + " ?");
-        if (columnName.contains("id")) {
-            cachedRowSet.setInt(1, Integer.valueOf(value));
-        } else {
-            cachedRowSet.setString(1, value);
-        }
+        cachedRowSet.setCommand("select * from customer");
         cachedRowSet.execute();
         //to get information about table
         ResultSetMetaData RST = cachedRowSet.getMetaData();
         while (cachedRowSet.next()) {
             new Customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4));
             customerArray.add(new Customer(cachedRowSet.getInt(1), cachedRowSet.getString(2), cachedRowSet.getString(3), cachedRowSet.getString(4)));
-            for (int i = 1; i < RST.getColumnCount(); i++) {
-                System.out.print(cachedRowSet.getString(i) + "   ");
-            }
-            System.out.println("__");
         }
 
     } catch (SQLException se) {
@@ -328,9 +319,11 @@ public class CommandSQL implements AutoCloseable {
                     System.out.print(cachedRowSet.getString(i) + "   ");
                 }
             }
-            System.out.println("__");
+            else
+                return null;
         } catch (SQLException se) {
             System.out.println(se.getMessage());
+            return null;
         } finally {
             try {
                 InitDB.releaseDB();
