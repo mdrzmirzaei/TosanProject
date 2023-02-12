@@ -7,7 +7,7 @@ import java.sql.*;
 
 public abstract class InitDB {
     private static CachedRowSet cachedRowSet = null;
-    private static ConnectionPool cp = new ConnectionPool("jdbc:mysql://localhost:3306/corebanking", "admin_cb", "cb");
+    private static ConnectionPool cp = new ConnectionPool("jdbc:mysql://localhost:3306/corebanking", "cbadmin", "cb");
 
     public static Connection ConnectOk() {
 
@@ -16,7 +16,7 @@ public abstract class InitDB {
 
 
         } catch (SQLException se) {
-            System.out.println("امکان ایجاد استخر ارتباط وجود ندارد");
+            System.out.println("امکان ایجاد بستری برای ارتباط وجود ندارد");
             System.out.println(se.getMessage());
 
         }
@@ -32,7 +32,7 @@ public abstract class InitDB {
             cachedRowSet.setUsername(cp.getUser());
             cachedRowSet.setPassword(cp.getPassword());
         } catch (SQLException se) {
-            System.out.println("اطلاعات برای استفاده از کافی نیست!!");
+            System.out.println("اطلاعات برای استفاده از کانکشن کافی نیست!!");
             System.out.println(se.getMessage());
         }
         return cachedRowSet;

@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c926db61-df9d-4ee8-a5ce-c049bd61d17f" name="Changes" comment="GUIIII">
+      <change afterPath="$PROJECT_DIR$/mySQLdump" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/src/main/java/UI/TosanProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/UI/TosanProject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/src/main/java/DatabaseManager/InitDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/src/main/java/DatabaseManager/InitDB.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +124,7 @@
       <workItem from="1676072905888" duration="78000" />
       <workItem from="1676095682484" duration="590000" />
       <workItem from="1676125633559" duration="43256000" />
+      <workItem from="1676231870581" duration="302000" />
     </task>
     <task id="LOCAL-00001" summary="mirza Test">
       <created>1674122532859</created>
@@ -188,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676229732975</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="GUIIII">
+      <created>1676230285019</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1676230285019</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
