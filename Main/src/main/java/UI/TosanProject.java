@@ -28,7 +28,7 @@ public class TosanProject extends JFrame {
     ArrayList<Entities.BankAccount> bankAccountArrayList = new ArrayList<>();
     BankAccount selectedBankAccount = new BankAccount();
     LoanManager loanManager = new LoanManager();
-    private JPanel Main;
+    public  JPanel Main;
     private JTextField userName;
     private JButton enter;
     private JTextField password;
@@ -149,6 +149,7 @@ public class TosanProject extends JFrame {
 
 
         Login.setVisible(Boolean.TRUE);
+
         CustomercCreate.setBackground(Color.DARK_GRAY);
         tip1.setForeground(Color.WHITE);
         Showc.setBackground(Color.DARK_GRAY);
