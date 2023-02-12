@@ -5,35 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c926db61-df9d-4ee8-a5ce-c049bd61d17f" name="Changes" comment="GUIIII">
-      <change afterPath="$PROJECT_DIR$/Main/src/Report.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/BankManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/BankManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/CoreBanking-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/CoreBanking-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankAccountManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankAccountManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankManager$ThreadRun.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankManager$ThreadRun.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/CommandSQL.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/CommandSQL.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/CustomerManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/CustomerManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/UserLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/UserLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/BankAccount.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/BankAccount.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Installments.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Installments.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/TransactionsInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/TransactionsInterface.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/users.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/users.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/DatabaseManager-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/DatabaseManager-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DatabaseManager/ConnectionPool.class" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/classes/DatabaseManager/ConnectionPool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DatabaseManager/InitDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/classes/DatabaseManager/InitDB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/Loan-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/Loan-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentCalculate.class" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentCalculate.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentPayment.class" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentPayment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentsManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentsManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/classes/LoanManager/LoanManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/classes/LoanManager/LoanManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/UI/TosanProject.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/UI/TosanProject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Report.xlsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676221407127</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="GUIIII">
+      <created>1676229638781</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1676229638781</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

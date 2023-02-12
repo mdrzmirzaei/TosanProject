@@ -46,7 +46,8 @@ public class BankManager {
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
 
         for (int i = 0; i < threadCount; i++) {
-            int partition = transactionList.size() / partitionSize;
+            int partition = transactionList.size() / threadCount;
+            System.out.println(transactionList.size());
             int from = i * partition;
             int to = from + partition;
             executorService.submit(new ThreadRun(from, to, transactionList));
