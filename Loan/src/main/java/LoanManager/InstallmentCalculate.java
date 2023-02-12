@@ -23,8 +23,9 @@ public class InstallmentCalculate implements TransactionsInterface {
     LoanManager loanManager = new LoanManager();
     LocalDateTime ldt = LocalDateTime.now();
     BankAccount selected_bankAccount = new BankAccount();
+    Customer customer = new Customer();
     private BigDecimal ressourceRemain = null;
-    private Date dueDate;
+    private Date dueDate = new Date();
     private Double rate;
     private int payMonths;
     private Double paymentAmount;
@@ -36,8 +37,6 @@ public class InstallmentCalculate implements TransactionsInterface {
         this.paymentAmount = paymentAmount;
     }
 
-    public InstallmentCalculate() {
-    }
 
     public Double getRate() {
         return rate;
@@ -65,7 +64,7 @@ public class InstallmentCalculate implements TransactionsInterface {
 
 
     @Override
-    public BigDecimal withDraw(/*BigDecimal WDamount /*Withdraw_amount*/) {
+    public BigDecimal withDraw( String idCustomer /*BigDecimal WDamount /*Withdraw_amount*/) {
         try {
 //            System.out.println("please enter Amount of loan :");
 //            setPaymentAmount(scanner.nextDouble());
@@ -74,15 +73,28 @@ public class InstallmentCalculate implements TransactionsInterface {
 //            if (new LoanManager().loanRequest(getPaymentAmount(), getPayMonths()) != false) {
 
 //                {
-                ressourceRemain = cmd.get_financial_ressource_cmd().subtract(BigDecimal.valueOf(getPaymentAmount()));
-                cmd.update_cmd("financial_ressource", 1, "financial_amount", ressourceRemain.toString());
-                return BigDecimal.valueOf(this.paymentAmount);
+            ressourceRemain = cmd.get_financial_ressource_cmd().subtract(BigDecimal.valueOf(getPaymentAmount()));
+            cmd.update_cmd("financial_ressource", 1, "financial_amount", ressourceRemain.toString());
+
+            HashMap<String, String> transaction = new HashMap();
+            java.sql.Date newDate = new java.sql.Date(dueDate.getTime());
+            transaction.put("transaction_date", newDate.toString());
+            transaction.put("transaction_time", ldt.getHour() + ":" + ldt.getMinute());
+            transaction.put("kind_of_transaction", "withdraw");
+            transaction.put("transaction_amount", getPaymentAmount().toString());
+            transaction.put("transaction_status", String.valueOf("T".charAt(0)));
+            //transaction.put("transaction_customer_id", "1");
+            transaction.put("transaction_origin", "1");
+            transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_account()));
+            cmd.insert_cmd("transaction", transaction);
+
+
+            return BigDecimal.valueOf(this.paymentAmount);
 
 //            } else
 //                return null;
         } catch (Exception e) {
             HashMap<String, String> transaction = new HashMap();
-            dueDate = new Date();
             java.sql.Date newDate = new java.sql.Date(dueDate.getTime());
             transaction.put("transaction_date", newDate.toString());
             transaction.put("transaction_time", ldt.getHour() + ":" + ldt.getMinute());
@@ -104,12 +116,15 @@ public class InstallmentCalculate implements TransactionsInterface {
     public boolean deposit(String idcustomer, String bankAccountID, String amount) {
 
         try {
+            if (selected_bankAccount != null) {
 
-            HashMap<String, String> transaction = new HashMap();
+
+                HashMap<String, String> transaction = new HashMap();
 
 
 //            System.out.println("pls enter customer ID : ");
 //            int idcustomer = scanner.nextInt();
+/*
             ArrayList<BankAccount> bankAccountArray = cmd.select_bank_accounts("bank_account_customer_id", " = ", String.valueOf(idcustomer));
 
             if (bankAccountArray != null) {
@@ -121,9 +136,12 @@ public class InstallmentCalculate implements TransactionsInterface {
                         selected_bankAccount = bankAccountArray.get(i);
                     }
                 }
-                dueDate = new Date();
+
+ */
+
                 java.sql.Date newDate = new java.sql.Date(dueDate.getTime());
-                cmd.update_cmd("bank_account", selected_bankAccount.getIdbank_acocunt(), "bank_account_balance", String.valueOf(selected_bankAccount.getBank_account_balance().add(BigDecimal.valueOf(paymentAmount))));
+                System.out.println(selected_bankAccount.getIdbank_account() + "   " + selected_bankAccount.getBank_account_balance());
+                cmd.update_cmd("bank_account", selected_bankAccount.getIdbank_account(), "bank_account_balance", String.valueOf(selected_bankAccount.getBank_account_balance().add(BigDecimal.valueOf(paymentAmount))));
                 transaction.put("transaction_date", newDate.toString());
                 transaction.put("transaction_time", ldt.getHour() + ":" + ldt.getMinute());
                 transaction.put("kind_of_transaction", "withdraw");
@@ -131,7 +149,7 @@ public class InstallmentCalculate implements TransactionsInterface {
                 transaction.put("transaction_status", String.valueOf("T".charAt(0)));
                 transaction.put("transaction_customer_id", String.valueOf(selected_bankAccount.getIdcustomer_bank_acount()));
                 transaction.put("transaction_origin", "1");
-                transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_acocunt()));
+                transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_account()));
                 cmd.insert_cmd("transaction", transaction);
                 return true;
             } else {
@@ -141,7 +159,6 @@ public class InstallmentCalculate implements TransactionsInterface {
         } catch (Exception e) {
 
             HashMap<String, String> transaction = new HashMap();
-            dueDate = new Date();
             java.sql.Date newDate = new java.sql.Date(dueDate.getTime());
             transaction.put("transaction_date", newDate.toString());
             transaction.put("transaction_time", ldt.getHour() + ":" + ldt.getMinute());
@@ -150,7 +167,7 @@ public class InstallmentCalculate implements TransactionsInterface {
             transaction.put("transaction_status", String.valueOf("F".charAt(0)));
             transaction.put("transaction_customer_id", String.valueOf(selected_bankAccount.getIdcustomer_bank_acount()));
             transaction.put("transaction_origin", "1");
-            transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_acocunt()));
+            transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_account()));
             cmd.insert_cmd("transaction", transaction);
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
@@ -160,11 +177,11 @@ public class InstallmentCalculate implements TransactionsInterface {
 
 
     @Override
-    public boolean accountToaccount() {
+    public boolean accountToaccount(Customer customer) {
         try {
-            if (withDraw() != null) {
+            if (withDraw(String.valueOf(this.customer.getIdCustomer())) != null) {
 
-                deposit("10017","fsfd","dsfsdf");
+                deposit(String.valueOf(customer.getIdCustomer()), String.valueOf(selected_bankAccount.getIdbank_account()), String.valueOf(getPaymentAmount()));
 
                 return true;
             }
@@ -177,40 +194,45 @@ public class InstallmentCalculate implements TransactionsInterface {
     }
 
 
-    public void fillInstallmentsData(String idcustomer) {
+    public boolean fillInstallmentsData(BankAccount selected_bankAccount) {
 //        System.out.println("pls enter customer ID : ");
 //        int idcustomer = scanner.nextInt();
-        Customer Customer = cmd.select_customer_cmd("idCustomer", "=", String.valueOf(idcustomer));
-        BankAccount selectedBankAccount = cmd.select_one_bank_account("bank_account_customer_id", "=", String.valueOf(idcustomer));
+        try {
+            customer = cmd.select_customer_cmd("idCustomer", "=", String.valueOf(selected_bankAccount.getIdcustomer_bank_acount()));
+            this.selected_bankAccount = selected_bankAccount;
+            //BankAccount selectedBankAccount=new BankAccount();
+
+            Date myDate;
+            Double monthsRate = ((getRate() / 12d) / 100);
 
 
-        Date myDate;
+            for (int i = 1; i <= payMonths; i++) {
+                HashMap<String, String> installs = new HashMap<>();
 
-        Double monthsRate = ((rate / 12d) / 100);
+                myDate = Date.from(LocalDate.now().plusMonths(i).atStartOfDay(ZoneId.systemDefault()).toInstant());
+                java.sql.Date newDate = new java.sql.Date(myDate.getTime());
 
+                installs.put("installments_idloan", customer.getIdCustomer() + "" + payMonths + rate.intValue());
+                installs.put("installments_dueDate", newDate.toString());
+                installs.put("installments_principle_amount", String.valueOf(Math.round(Finance.ppmt(monthsRate, i, payMonths, this.paymentAmount) * -1)));
+                installs.put("installments_interest", String.valueOf(Math.round(Finance.ipmt(monthsRate, i, payMonths, this.paymentAmount) * -1)));
+                installs.put("installments_sum_pi_amount", String.valueOf(Math.round(Finance.pmt(monthsRate, payMonths, this.paymentAmount) * -1)));
+                installs.put("installments_status", "F");
+                installs.put("installments_customer_id", String.valueOf(customer.getIdCustomer()));
+                installs.put("installments_account_id", String.valueOf(selected_bankAccount.getIdbank_account()));
+                installs.put("installments_months", String.valueOf(i));
 
-        for (int i = 1; i <= payMonths; i++) {
-            HashMap<String, String> installs = new HashMap<>();
-
-            myDate = Date.from(LocalDate.now().plusMonths(i).atStartOfDay(ZoneId.systemDefault()).toInstant());
-            java.sql.Date newDate = new java.sql.Date(myDate.getTime());
-
-            installs.put("installments_idloan", Customer.getIdCustomer() + "" + payMonths + rate.intValue());
-            installs.put("installments_dueDate", newDate.toString());
-            installs.put("installments_principle_amount", String.valueOf(Math.round(Finance.ppmt(monthsRate, i, payMonths, this.paymentAmount) * -1)));
-            installs.put("installments_interest", String.valueOf(Math.round(Finance.ipmt(monthsRate, i, payMonths, this.paymentAmount) * -1)));
-            installs.put("installments_sum_pi_amount", String.valueOf(Math.round(Finance.pmt(monthsRate, payMonths, this.paymentAmount) * -1)));
-            installs.put("installments_status", "F");
-            installs.put("installments_customer_id", String.valueOf(Customer.getIdCustomer()));
-            installs.put("installments_account_id", String.valueOf(selectedBankAccount.getIdbank_acocunt()));
-            installs.put("installments_months", String.valueOf(i));
-
-            cmd.insert_cmd("installments", installs);
-            installments.add(new Installments(Customer.getIdCustomer() + "" + payMonths + rate.intValue(), i, Math.round(Finance.ppmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.ipmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.pmt(monthsRate, payMonths, paymentAmount.doubleValue()) * -1), 'F', Customer.getIdCustomer(), selectedBankAccount.getIdbank_acocunt(), newDate));
+                cmd.insert_cmd("installments", installs);
+                installments.add(new Installments(customer.getIdCustomer() + "" + payMonths + rate.intValue(), i, Math.round(Finance.ppmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.ipmt(monthsRate, i, payMonths, paymentAmount) * -1), Math.round(Finance.pmt(monthsRate, payMonths, paymentAmount.doubleValue()) * -1), 'F', customer.getIdCustomer(), selected_bankAccount.getIdbank_account(), newDate));
 
 
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.getCause();
+            return false;
         }
-
+        return true;
     }
 
 

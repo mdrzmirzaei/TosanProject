@@ -250,11 +250,36 @@ public class CommandSQL implements AutoCloseable {
 
     }
 
-    public BankAccount select_one_bank_account(String columnName, String condition, String value) {
+    public BankAccount select_one_bank_account(ArrayList<BankAccount> bankAccountsArray,String bankAccountId) {
         BankAccount selected_bankAccount = new BankAccount();
 
         try {
-            cachedRowSet.setCommand("select * from bank_account where " + columnName + " " + condition + " ?");
+            for (int i = 0; i < bankAccountArray.size(); i++) {
+                if (bankAccountArray.get(i).getIdbank_account() == Integer.valueOf(bankAccountId)) {
+                    selected_bankAccount = bankAccountsArray.get(i);
+                }
+
+            }
+            return selected_bankAccount;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.getCause();
+            return null;
+        } finally {
+            try {
+                InitDB.releaseDB();
+                cachedRowSet.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println(e.getCause());
+            }
+        }
+    }
+
+
+
+         /*   cachedRowSet.setCommand("select * from bank_account where " + columnName + " " + condition + " ?");
             if (columnName.contains("id")) {
                 cachedRowSet.setInt(1, Integer.valueOf(value));
             } else {
@@ -299,6 +324,8 @@ public class CommandSQL implements AutoCloseable {
 
     }
 
+
+          */
     public Customer select_customer_cmd(String columnName, String condition, String value) {
         try {
 

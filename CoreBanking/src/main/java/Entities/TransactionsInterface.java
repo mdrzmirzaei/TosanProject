@@ -11,6 +11,6 @@ import java.math.BigDecimal;
 public interface TransactionsInterface {
 
    boolean deposit(String idcustomer, String bankAccountId, String amount);
-   BigDecimal withDraw();
-   boolean accountToaccount();
+   BigDecimal withDraw(String idCustomer);
+   boolean accountToaccount(Customer customer);
 }

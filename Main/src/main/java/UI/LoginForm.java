@@ -6,8 +6,10 @@ import CoreBankingManager.CustomerManager;
 import CoreBankingManager.UserLogin;
 import Entities.BankAccount;
 import Entities.Customer;
-import LoanManager.*;
-
+import Entities.Installments;
+import LoanManager.InstallmentCalculate;
+import LoanManager.InstallmentPayment;
+import LoanManager.LoanManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +25,9 @@ public class LoginForm extends JFrame {
     Customer customerSwing = new Customer();
     CommandSQL cmd = new CommandSQL();
     BankAccountManager bankAccountManager = new BankAccountManager();
+    ArrayList<Entities.BankAccount> bankAccountArrayList = new ArrayList<>();
+    BankAccount selectedBankAccount = new BankAccount();
+    LoanManager loanManager = new LoanManager();
     private JPanel Main;
     private JTextField userName;
     private JButton enter;
@@ -30,14 +35,10 @@ public class LoginForm extends JFrame {
     private JLabel userl;
     private JLabel passl;
     private JPanel Login;
-    private JPanel Employee;
     private JButton createCustomer;
     private JButton editcusotmer;
     private JButton deleteCustomer;
     private JButton ShowCustomers;
-    private JButton CreateLoan;
-    private JButton Showinstallments;
-    private JButton giveInstallments;
     private JPanel Manager;
     private JPanel Customer;
     private JPanel CustomercCreate;
@@ -90,6 +91,18 @@ public class LoginForm extends JFrame {
     private JTextField loanAmount;
     private JTextField Loanmonths;
     private JTable table2;
+    private JButton loanok;
+    private JTextField UI_Installment_idcustomer;
+    private JButton UI_ShowInstallments;
+    private JTable tableInstallments;
+    private JButton UI_checkInstallments;
+    private JLabel countofinstallment;
+    private JLabel sumOfAmount;
+    private JTextField UI_installment_id_customer;
+    private JTextField IU_installment_idbankaccount;
+    private JTextField IU_installment_sumOfAmount;
+    private JTextField IU_installment_countofinstallments;
+    private JTable depsitinstallments;
     private char kou;
 
 
@@ -98,7 +111,7 @@ public class LoginForm extends JFrame {
         setContentPane(Main);
         Main.setBackground(Color.DARK_GRAY);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(1027, 768);
         setResizable(false);
         setLocation(512, 381);
         setTitle("پروژه توسن - ورژن 1.0");
@@ -117,6 +130,8 @@ public class LoginForm extends JFrame {
                 c.setForeground(Color.WHITE);
             }
         }
+
+
         Login.setVisible(Boolean.TRUE);
         CustomercCreate.setBackground(Color.DARK_GRAY);
         tip1.setForeground(Color.WHITE);
@@ -125,6 +140,16 @@ public class LoginForm extends JFrame {
         Editc.setBackground(Color.DARK_GRAY);
         UICreateBankAccount.setBackground(Color.DARK_GRAY);
         deposittocustomer.setBackground(Color.DARK_GRAY);
+        createLoan.setBackground(Color.DARK_GRAY);
+        showinstallments.setBackground(Color.DARK_GRAY);
+        giveainstallments.setBackground(Color.DARK_GRAY);
+
+
+        tabbedPane1.setVisible(false);
+        Loan.setVisible(false);
+        BankAccount.setVisible(false);
+        Customer.setVisible(false);
+
 
         currncy.addItem("ریال");
         currncy.addItem("دلار");
@@ -138,21 +163,24 @@ public class LoginForm extends JFrame {
                 JOptionPane.showMessageDialog(Main, (UserLogin.getUser().getName() + " " + UserLogin.getUser().getFamily() + "   خوش آمدید "));
                 kou = UserLogin.getUser().getKou();
                 if (UserLogin.getUser().getKou() == 'E') {
-                    Employee.setBackground(Color.DARK_GRAY);
-                    //   Manager.setVisible(false);
-                    Employee.setVisible(Boolean.TRUE);
+
+                    tabbedPane1.setVisible(true);
+                    Loan.setVisible(true);
+                    BankAccount.setVisible(true);
+                    Customer.setVisible(true);
+
                 }
                 if (UserLogin.getUser().getKou() == 'M') {
-                    //         Manager.setBackground(Color.DARK_GRAY);
-                    //        Manager.setVisible(Boolean.TRUE);
-                    Employee.setVisible(true);
+                    tabbedPane1.setVisible(false);
+                    Loan.setVisible(false);
+                    BankAccount.setVisible(false);
+                    Customer.setVisible(false);
+
                 }
                 Login.setVisible(Boolean.FALSE);
-                Customer.setVisible(true);
-
 
             } else {
-                JOptionPane.showMessageDialog(Main, "نام کاربری یا رمز عبورتان اشتباه است");
+                JOptionPane.showMessageDialog(Main, "نام کاربری یا رمز عبورتان اشتباه است","اخطار",JOptionPane.OK_OPTION);
                 userName.setText("");
                 password.setText("");
             }
@@ -200,6 +228,34 @@ public class LoginForm extends JFrame {
 
                     Loanidcustomer.setText(String.valueOf(customerSwing.getIdCustomer()));
 
+
+                    UI_Installment_idcustomer.setText(customerSwing.getCustomer_name() + "  " + customerSwing.getCustomer_family());
+
+
+                    UI_installment_id_customer.setText(String.valueOf(customerSwing.getIdCustomer()));
+
+                    //******************************* full Tables
+                    if (depsitinstallments.getRowCount() == 0) {
+                        DefaultTableModel model = new DefaultTableModel();
+                        bankAccountArrayList = cmd.select_bank_accounts("bank_account_customer_id", "=", UI_installment_id_customer.getText());
+
+
+                        Object[] ColumnsName = new Object[2];
+                        ColumnsName[0] = "شماره حساب";
+                        ColumnsName[1] = "موجودی";
+                        model.setColumnIdentifiers(ColumnsName);
+                        Object[] rowData = new Object[4];
+
+                        for (int i = 0; i < bankAccountArrayList.size(); i++) {
+
+                            rowData[0] = bankAccountArrayList.get(i).getIdbank_account();
+                            rowData[1] = bankAccountArrayList.get(i).getBank_account_balance();
+                            model.addRow(rowData);
+                        }
+                        depsitinstallments.setModel(model);
+                    }
+
+
                 } else if (customerSwing == null) {
                     JOptionPane.showMessageDialog(Customer, "متاسفانه فرد مورد نظر پیدا نشد");
                     editcaddress.setText("");
@@ -228,7 +284,7 @@ public class LoginForm extends JFrame {
         ShowCustomers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                table1.removeAll();
+
                 if (table1.getRowCount() == 0) {
                     DefaultTableModel model = new DefaultTableModel();
                     ArrayList<Customer> customerArryaList = customerManager.showCustomers();
@@ -282,7 +338,7 @@ public class LoginForm extends JFrame {
         givetoloan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoanManager loanManager = new LoanManager();
+
                 if (loanManager.loanRequest(Double.valueOf(loanAmount.getText()), Integer.valueOf(Loanmonths.getText()))) {
                     double rate = loanManager.getLoanRate();
 
@@ -290,7 +346,7 @@ public class LoginForm extends JFrame {
 
                     if (table2.getRowCount() == 0) {
                         DefaultTableModel model = new DefaultTableModel();
-                        ArrayList<Entities.BankAccount> bankAccountArrayList = cmd.select_bank_accounts("bank_account_customer_id","=",Loanidcustomer.getText());
+                        bankAccountArrayList = cmd.select_bank_accounts("bank_account_customer_id", "=", Loanidcustomer.getText());
 
 
                         Object[] ColumnsName = new Object[2];
@@ -301,22 +357,107 @@ public class LoginForm extends JFrame {
 
                         for (int i = 0; i < bankAccountArrayList.size(); i++) {
 
-                            rowData[0] = bankAccountArrayList.get(i).getIdbank_acocunt();
+                            rowData[0] = bankAccountArrayList.get(i).getIdbank_account();
                             rowData[1] = bankAccountArrayList.get(i).getBank_account_balance();
                             model.addRow(rowData);
                         }
                         table2.setModel(model);
                     }
 
-                    InstallmentCalculate installmentCalculate= new InstallmentCalculate();
-                    installmentCalculate.fillInstallmentsData(Loanidcustomer.getText());
-
-
 
                 } else
                     JOptionPane.showMessageDialog(Loan, "مشتری واجد دریافت وام نمی باشد");
 
 
+            }
+        });
+        loanok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int row = table2.getSelectedRow();
+                System.out.println(table2.getValueAt(row, 0));
+
+                selectedBankAccount = cmd.select_one_bank_account(bankAccountArrayList, String.valueOf(table2.getValueAt(row, 0)));
+                System.out.println(selectedBankAccount.getIdbank_account());
+                //for installments payment
+                IU_installment_idbankaccount.setText(String.valueOf(selectedBankAccount.getIdbank_account()));
+
+                LoanManager loanManager = new LoanManager();
+                InstallmentCalculate installmentCalculate = new InstallmentCalculate(loanManager.getLoanRate(), Integer.valueOf(Loanmonths.getText()), Double.valueOf(loanAmount.getText().toString()));
+
+
+                if (installmentCalculate.accountToaccount(customerSwing) && installmentCalculate.fillInstallmentsData(selectedBankAccount)) {
+                    JOptionPane.showMessageDialog(Main, "عملیات واریز تسهیلات انجام شد و جدول مربوط به اقساط تشکیل گردید");
+                } else
+                    JOptionPane.showMessageDialog(Main, "متاسفانه عملیات واریز تسهیلات ناموفق بود");
+
+            }
+        });
+        UI_ShowInstallments.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (tableInstallments.getRowCount() == 0) {
+                    DefaultTableModel model = new DefaultTableModel();
+                    ArrayList<Installments> installmentsArrayList = cmd.select_installment_cmd(customerSwing);
+
+                    Object[] ColumnsName = new Object[6];
+                    ColumnsName[0] = "شماره ماه پرداختی";
+                    ColumnsName[1] = "مبلغ اصلی پول";
+                    ColumnsName[2] = "مبلغ سود";
+                    ColumnsName[3] = "حاصلجمع سود و اصل پول";
+                    ColumnsName[4] = "وضعیت اقساط";
+                    ColumnsName[5] = "تاریخ موثر";
+
+                    model.setColumnIdentifiers(ColumnsName);
+                    Object[] rowData = new Object[6];
+
+                    for (int i = 0; i < installmentsArrayList.size(); i++) {
+
+                        rowData[0] = installmentsArrayList.get(i).getInstallments_months();
+                        rowData[1] = installmentsArrayList.get(i).getInstallments_principle_amount();
+                        rowData[2] = installmentsArrayList.get(i).getInstallments_interest();
+                        rowData[3] = installmentsArrayList.get(i).getInstallments_sum_pi_amount();
+                        rowData[4] = installmentsArrayList.get(i).getInstallments_status();
+                        rowData[5] = installmentsArrayList.get(i).getInstallments_dueDate();
+
+                        model.addRow(rowData);
+                    }
+
+                    tableInstallments.setModel(model);
+                }
+
+            }
+        });
+        UI_checkInstallments.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = depsitinstallments.getSelectedRow();
+                IU_installment_idbankaccount.setText(String.valueOf(depsitinstallments.getValueAt(row, 0)));
+//                bankAccountArrayList.clear();
+//                bankAccountArrayList = cmd.select_bank_accounts("bank_account_customer_id", "=", UI_installment_id_customer.getText());
+                selectedBankAccount = cmd.select_one_bank_account(bankAccountArrayList, String.valueOf(depsitinstallments.getValueAt(row, 0)));
+                IU_installment_idbankaccount.setText(String.valueOf(selectedBankAccount.getIdbank_account()));
+                InstallmentPayment installmentPayment = new InstallmentPayment(IU_installment_idbankaccount.getText(), Integer.valueOf(IU_installment_countofinstallments.getText()));
+                System.out.println(selectedBankAccount.getIdbank_account());
+                IU_installment_sumOfAmount.setText(String.valueOf(installmentPayment.getInstallmentAmount()));
+
+
+                if (installmentPayment.checkInstallments(selectedBankAccount) != 0d && String.valueOf(installmentPayment.getInstallmentAmount()) != null) {
+                    int answer = 0;
+                    JOptionPane.showConfirmDialog(null, "آیا مشتری موافق پرداخت این مبلغ است؟ " + installmentPayment.getInstallmentAmount(), "تایید پرداخت اقساط", JOptionPane.YES_NO_OPTION);
+                    switch (answer) {
+                        case JOptionPane.YES_OPTION:
+                            System.out.println("عملیات پرداخت اقساط انجام شود");
+                            installmentPayment.accountToaccount(customerSwing);
+                            break;
+
+                        case JOptionPane.NO_OPTION:
+                            System.out.println("مشتری منصرف شده است ");
+                            break;
+                    }
+
+                }
             }
         });
     }

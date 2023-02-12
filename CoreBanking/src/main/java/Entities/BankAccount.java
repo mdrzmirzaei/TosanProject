@@ -19,7 +19,7 @@ public class BankAccount {
 
     }
 
-    public int getIdbank_acocunt() {
+    public int getIdbank_account() {
         return idbank_account;
     }
 

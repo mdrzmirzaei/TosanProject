@@ -2,6 +2,7 @@ package CoreBankingManager;
 
 import DatabaseManager.InitDB;
 import Entities.BankAccount;
+import Entities.Customer;
 import Entities.TransactionsInterface;
 
 import java.math.BigDecimal;
@@ -21,9 +22,10 @@ public class BankAccountManager implements TransactionsInterface {
     String idcustomer = "";
     String bankAccountId = "";
     private Date date;
+    Customer customer=new Customer();
 
     @Override
-    public BigDecimal withDraw() {
+    public BigDecimal withDraw(String idCustomer) {
         return null;
     }
 
@@ -31,7 +33,7 @@ public class BankAccountManager implements TransactionsInterface {
     public boolean deposit(String idcustomer, String bankAccountID, String amount) {
         this.idcustomer = idcustomer;
         try {
-            if (withDraw() == null) {
+            if (withDraw(idcustomer) == null) {
 
                 HashMap<String, String> bankaccount = new HashMap();
                 HashMap<String, String> transaction = new HashMap();
@@ -46,20 +48,20 @@ public class BankAccountManager implements TransactionsInterface {
 //                    int sel = scanner.nextInt();
                     int sel = Integer.valueOf(bankAccountID);
                     for (int i = 0; i < bankAccountArray.size(); i++) {
-                        if (bankAccountArray.get(i).getIdbank_acocunt() == sel) {
+                        if (bankAccountArray.get(i).getIdbank_account() == sel) {
                             selected_bankAccount = bankAccountArray.get(i);
                         }
                     }
-                    this.bankAccountId =String.valueOf(selected_bankAccount.getIdbank_acocunt()) ;
+                    this.bankAccountId =String.valueOf(selected_bankAccount.getIdbank_account()) ;
 //                    System.out.println("please enter amount of deposit");
 //                    Amount = scanner.nextBigDecimal();
                     Amount = new BigDecimal(amount.toString());
                     bankaccount.put("bank_account_balance", String.valueOf(selected_bankAccount.getBank_account_balance().add(Amount)));
-                    cmd.update_cmd("bank_account", selected_bankAccount.getIdbank_acocunt(), bankaccount);
+                    cmd.update_cmd("bank_account", selected_bankAccount.getIdbank_account(), bankaccount);
                     transaction.put("transaction_amount", Amount.toString());
                     transaction.put("transaction_status", String.valueOf("T".charAt(0)));
                     transaction.put("transaction_customer_id", String.valueOf(selected_bankAccount.getIdcustomer_bank_acount()));
-                    transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_acocunt()));
+                    transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_account()));
                     cmd.insert_cmd("transaction", transaction);
 
                     return true;
@@ -80,7 +82,7 @@ public class BankAccountManager implements TransactionsInterface {
             transaction.put("transaction_status", String.valueOf("F".charAt(0)));
             transaction.put("transaction_customer_id", String.valueOf(selected_bankAccount.getIdcustomer_bank_acount()));
             transaction.put("transaction_origin", "1");
-            transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_acocunt()));
+            transaction.put("transaction_destination", String.valueOf(selected_bankAccount.getIdbank_account()));
             cmd.insert_cmd("transaction", transaction);
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
@@ -91,8 +93,8 @@ public class BankAccountManager implements TransactionsInterface {
 
 
     @Override
-    public boolean accountToaccount() {
-        if (withDraw() != null) {
+    public boolean accountToaccount(Customer customer) {
+        if (withDraw(idcustomer) != null) {
             try {
                 deposit(idcustomer,bankAccountId,Amount.toString());
                 Connection connection = InitDB.ConnectOk();

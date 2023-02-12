@@ -6,7 +6,6 @@ import Entities.BankAccount;
 import Entities.Customer;
 import Entities.Installments;
 import Entities.TransactionsInterface;
-import LoanManager.LoanManager;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -25,42 +24,75 @@ public class InstallmentPayment implements AutoCloseable, TransactionsInterface 
     Scanner scanner = new Scanner(System.in);
     LoanManager loanManager = new LoanManager();
     BankAccount selectedBankAccount = null;
+    String idBankAccout="";
+    Customer customer = new Customer();
     LocalDateTime ldt = LocalDateTime.now();
     private double installmentAmount;
     private Date dueDate;
     private int installmentsNumber;
 
-    @Override
-    public BigDecimal withDraw() {
-        try {
-            System.out.println("please enter id of customer for select bank account : ");
-            selectedBankAccount = cmd.select_one_bank_account("bank_account_customer_id", " = ", String.valueOf(scanner.nextInt()));
-            System.out.println("please enter number of of installment :");
-            installmentsNumber = scanner.nextInt();
-            Customer customer = cmd.select_customer_cmd("idcustomer", " = ", String.valueOf(selectedBankAccount.getIdcustomer_bank_acount()));
-            installments = cmd.select_installment_cmd(customer);
-            for (int i = 1; i < installments.size(); i++) {
-                if (installments.get(i).getInstallments_status() == 'N' && i <= installmentsNumber) {
-                    System.out.println(installments.get(i).getInstallments_customer_id() + "  " + installments.get(i).getInstallments_interest() + "    " + installments.get(i).getInstallments_months() + "    " + installments.get(i).getInstallments_status() + "  " + installments.get(i).getInstallments_sum_pi_amount());
-                    installmentAmount += installments.get(i).getInstallments_sum_pi_amount();
 
-                } else break;
-            }
-            System.out.println("the Total of installment amount is : " + installmentAmount);
-            System.out.println("are Customer is ok? press Enter for cancel press another key");
-            int ok = scanner.nextInt();
-            if (ok == 1 && installmentAmount != 0 && selectedBankAccount != null) {
+    public InstallmentPayment(String idBankAccout, int installmentsNumber) {
+        this.idBankAccout = idBankAccout;
+        this.installmentsNumber = installmentsNumber;
+    }
+
+    public double getInstallmentAmount() {
+        return installmentAmount;
+    }
+
+
+    public String getIdBankAccout() {
+        return idBankAccout;
+    }
+
+    public Double checkInstallments(BankAccount bankAccount){
+        //System.out.println("please enter id of customer for select bank account : ");
+try {
+
+    customer = cmd.select_customer_cmd("idcustomer", " = ", String.valueOf(bankAccount.getIdcustomer_bank_acount()));
+    this.selectedBankAccount = bankAccount;
+
+//            System.out.println("please enter number of of installment :");
+//            installmentsNumber = scanner.nextInt();
+
+    installments = cmd.select_installment_cmd(customer);
+    for (int i = 1; i < installments.size(); i++) {
+        if (installments.get(i).getInstallments_status() == 'F' && i <= installmentsNumber) {
+            System.out.println(installments.get(i).getInstallments_customer_id() + "  " + installments.get(i).getInstallments_interest() + "    " + installments.get(i).getInstallments_months() + "    " + installments.get(i).getInstallments_status() + "  " + installments.get(i).getInstallments_sum_pi_amount());
+            installmentAmount += installments.get(i).getInstallments_sum_pi_amount();
+
+        } else break;
+    }
+}
+catch (Exception e)
+{
+    System.out.println(e.getMessage());
+    e.getCause();
+    return null;
+}
+        return installmentAmount;
+    }
+
+    @Override
+    public BigDecimal withDraw(String idCustomer) {
+        try {
+//            System.out.println("the Total of installment amount is : " + installmentAmount);
+//            System.out.println("are Customer is ok? press Enter for cancel press another key");
+//            int ok = scanner.nextInt();
+            if ( installmentAmount != 0 && selectedBankAccount != null) {
                 dueDate = new Date();
                 java.sql.Date newDate = new java.sql.Date(dueDate.getTime());
                 HashMap<String, String> ba_changes = new HashMap<>();
                 ba_changes.put("bank_account_balance", String.valueOf(selectedBankAccount.getBank_account_balance().subtract(BigDecimal.valueOf(installmentAmount))));
-                cmd.update_cmd("bank_account", selectedBankAccount.getIdbank_acocunt(), ba_changes);
+                cmd.update_cmd("bank_account", selectedBankAccount.getIdbank_account(), ba_changes);
                 transaction.put("transaction_date", newDate.toString());
                 transaction.put("transaction_time", ldt.getHour() + ":" + ldt.getMinute());
                 transaction.put("transaction_amount", String.valueOf(installmentAmount));
                 transaction.put("transaction_status", String.valueOf("T".charAt(0)));
                 transaction.put("transaction_customer_id", String.valueOf(selectedBankAccount.getIdcustomer_bank_acount()));
-                transaction.put("transaction_origin", String.valueOf(selectedBankAccount.getIdbank_acocunt()));
+                transaction.put("kind_of_transaction", "withdraw");
+                transaction.put("transaction_origin", String.valueOf(selectedBankAccount.getIdbank_account()));
                 transaction.put("transaction_destination", "1");
                 cmd.insert_cmd("transaction", transaction);
                 return BigDecimal.valueOf(installmentAmount);
@@ -78,7 +110,7 @@ public class InstallmentPayment implements AutoCloseable, TransactionsInterface 
             transaction.put("transaction_amount", String.valueOf(installmentAmount));
             transaction.put("transaction_status", String.valueOf("F".charAt(0)));
             transaction.put("transaction_customer_id", String.valueOf(selectedBankAccount.getIdcustomer_bank_acount()));
-            transaction.put("transaction_origin", String.valueOf(selectedBankAccount.getIdbank_acocunt()));
+            transaction.put("transaction_origin", String.valueOf(selectedBankAccount.getIdbank_account()));
             transaction.put("transaction_destination", "1");
             cmd.insert_cmd("transaction", transaction);
             System.out.println(e.getMessage());
@@ -88,7 +120,7 @@ public class InstallmentPayment implements AutoCloseable, TransactionsInterface 
     }
 
     @Override
-    public boolean deposit(String idcustomer,String bankAccountID, String amount) {
+    public boolean deposit(String idcustomer, String bankAccountID, String amount) {
         try {
             for (int i = 0; i <= installmentsNumber; i++) {
                 installmentAmount -= installments.get(i).getInstallments_sum_pi_amount();
@@ -101,8 +133,9 @@ public class InstallmentPayment implements AutoCloseable, TransactionsInterface 
                 transaction.put("transaction_time", ldt.getHour() + ":" + ldt.getMinute());
                 transaction.put("transaction_amount", String.valueOf(installmentAmount));
                 transaction.put("transaction_status", "T");
+                transaction.put("kind_of_transaction", "deposit");
                 transaction.put("transaction_customer_id", String.valueOf(selectedBankAccount.getIdcustomer_bank_acount()));
-                transaction.put("transaction_origin", String.valueOf(selectedBankAccount.getIdbank_acocunt()));
+                transaction.put("transaction_origin", String.valueOf(selectedBankAccount.getIdbank_account()));
                 transaction.put("transaction_destination", "1");
                 cmd.insert_cmd("transaction", transaction);
                 transaction.clear();
@@ -119,7 +152,7 @@ public class InstallmentPayment implements AutoCloseable, TransactionsInterface 
             transaction.put("transaction_amount", String.valueOf(installmentAmount));
             transaction.put("transaction_status", String.valueOf("F".charAt(0)));
             transaction.put("transaction_customer_id", String.valueOf(selectedBankAccount.getIdcustomer_bank_acount()));
-            transaction.put("transaction_origin", String.valueOf(selectedBankAccount.getIdbank_acocunt()));
+            transaction.put("transaction_origin", String.valueOf(selectedBankAccount.getIdbank_account()));
             transaction.put("transaction_destination", "1");
             cmd.insert_cmd("transaction", transaction);
             System.out.println(e.getMessage());
@@ -130,10 +163,10 @@ public class InstallmentPayment implements AutoCloseable, TransactionsInterface 
 
 
     @Override
-    public boolean accountToaccount() {
-        if (withDraw() != null) {
+    public boolean accountToaccount(Customer customer) {
+        if (withDraw(String.valueOf(customer.getIdCustomer())) != null) {
             try {
-                deposit("fdssfd","gdfgf","gdfgfgdg");
+                deposit(String.valueOf(customer.getIdCustomer()), String.valueOf(selectedBankAccount.getIdbank_account()), String.valueOf(this.installmentAmount));
                 Connection connection = InitDB.ConnectOk();
                 connection.setAutoCommit(Boolean.TRUE);
                 return true;
