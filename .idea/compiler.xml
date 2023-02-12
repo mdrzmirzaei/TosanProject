@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <directory url="file://$PROJECT_DIR$/Main/src/main/resources/archetype-resources" includeSubdirectories="true" />
+    </excludeFromCompile>
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="CoreBanking" />
+        <module name="DatabaseManager" />
+        <module name="Loan" />
+        <module name="Main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CB" target="17" />
+      <module name="CM" target="17" />
+      <module name="CoreBanking" target="17" />
+      <module name="DatabaseManager" target="17" />
+      <module name="L" target="17" />
+      <module name="Loan" target="17" />
+      <module name="Main" target="17" />
+      <module name="TosanProject" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
