@@ -88,7 +88,7 @@ public class InstallmentPayment implements AutoCloseable, TransactionsInterface 
     }
 
     @Override
-    public boolean deposit() {
+    public boolean deposit(String idcustomer,String bankAccountID, String amount) {
         try {
             for (int i = 0; i <= installmentsNumber; i++) {
                 installmentAmount -= installments.get(i).getInstallments_sum_pi_amount();
@@ -133,7 +133,7 @@ public class InstallmentPayment implements AutoCloseable, TransactionsInterface 
     public boolean accountToaccount() {
         if (withDraw() != null) {
             try {
-                deposit();
+                deposit("fdssfd","gdfgf","gdfgfgdg");
                 Connection connection = InitDB.ConnectOk();
                 connection.setAutoCommit(Boolean.TRUE);
                 return true;

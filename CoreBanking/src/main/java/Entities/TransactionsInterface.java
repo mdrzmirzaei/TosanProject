@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 public interface TransactionsInterface {
 
-   boolean deposit();
+   boolean deposit(String idcustomer, String bankAccountId, String amount);
    BigDecimal withDraw();
    boolean accountToaccount();
 }

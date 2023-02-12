@@ -18,6 +18,8 @@ public class BankAccountManager implements TransactionsInterface {
     Scanner scanner = new Scanner(System.in);
     BigDecimal Amount = null;
     BankAccount selected_bankAccount = new BankAccount();
+    String idcustomer = "";
+    String bankAccountId = "";
     private Date date;
 
     @Override
@@ -26,28 +28,32 @@ public class BankAccountManager implements TransactionsInterface {
     }
 
     @Override
-    public boolean deposit() {
+    public boolean deposit(String idcustomer, String bankAccountID, String amount) {
+        this.idcustomer = idcustomer;
         try {
             if (withDraw() == null) {
 
                 HashMap<String, String> bankaccount = new HashMap();
                 HashMap<String, String> transaction = new HashMap();
-                System.out.println("pls enter customer ID : ");
-                int idcustomer = scanner.nextInt();
+//                System.out.println("pls enter customer ID : ");
+//                int idcustomer = scanner.nextInt();
+
                 ArrayList<BankAccount> bankAccountArray = cmd.select_bank_accounts("bank_account_customer_id", " = ", String.valueOf(idcustomer));
 
                 if (bankAccountArray != null) {
-                    System.out.println("i find Bank Account!!!");
-                    System.out.println("please select acccount :");
-                    int sel = scanner.nextInt();
+//                    System.out.println("i find Bank Account!!!");
+//                    System.out.println("please select acccount :");
+//                    int sel = scanner.nextInt();
+                    int sel = Integer.valueOf(bankAccountID);
                     for (int i = 0; i < bankAccountArray.size(); i++) {
                         if (bankAccountArray.get(i).getIdbank_acocunt() == sel) {
                             selected_bankAccount = bankAccountArray.get(i);
                         }
                     }
-
-                    System.out.println("please enter amount of deposit");
-                    Amount = scanner.nextBigDecimal();
+                    this.bankAccountId =String.valueOf(selected_bankAccount.getIdbank_acocunt()) ;
+//                    System.out.println("please enter amount of deposit");
+//                    Amount = scanner.nextBigDecimal();
+                    Amount = new BigDecimal(amount.toString());
                     bankaccount.put("bank_account_balance", String.valueOf(selected_bankAccount.getBank_account_balance().add(Amount)));
                     cmd.update_cmd("bank_account", selected_bankAccount.getIdbank_acocunt(), bankaccount);
                     transaction.put("transaction_amount", Amount.toString());
@@ -88,7 +94,7 @@ public class BankAccountManager implements TransactionsInterface {
     public boolean accountToaccount() {
         if (withDraw() != null) {
             try {
-                deposit();
+                deposit(idcustomer,bankAccountId,Amount.toString());
                 Connection connection = InitDB.ConnectOk();
                 connection.setAutoCommit(Boolean.TRUE);
                 return true;

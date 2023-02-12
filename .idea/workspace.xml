@@ -5,25 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c926db61-df9d-4ee8-a5ce-c049bd61d17f" name="Changes" comment="add some feature for manager...">
-      <change afterPath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CustomerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CustomerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/UserLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/Entities/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/Entities/Users.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/CoreBanking-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/CoreBanking-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/UserLogin.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/UserLogin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CoreBanking/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/DatabaseManager-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/DatabaseManager-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/Loan-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/Loan-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loan/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Main/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/BankAccountManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/BankAccountManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/src/main/java/Entities/TransactionsInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/src/main/java/Entities/TransactionsInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankAccountManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankAccountManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankManager$ThreadRun.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankManager$ThreadRun.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/BankManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/CommandSQL.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/CommandSQL.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/CustomerManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/CoreBankingManager/CustomerManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/BankAccount.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/BankAccount.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Installments.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Installments.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/Transaction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/TransactionsInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/TransactionsInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/customer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/users.class" beforeDir="false" afterPath="$PROJECT_DIR$/CoreBanking/target/classes/Entities/users.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DatabaseManager/ConnectionPool.class" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/classes/DatabaseManager/ConnectionPool.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseManager/target/classes/DatabaseManager/InitDB.class" beforeDir="false" afterPath="$PROJECT_DIR$/DatabaseManager/target/classes/DatabaseManager/InitDB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentCalculate.java" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentCalculate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentPayment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/InstallmentPayment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/LoanManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/src/main/java/LoanManager/LoanManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentCalculate.class" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentCalculate.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentPayment.class" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentPayment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentsManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/classes/LoanManager/InstallmentsManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Loan/target/classes/LoanManager/LoanManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/Loan/target/classes/LoanManager/LoanManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +137,7 @@
       <workItem from="1675422306749" duration="22939000" />
       <workItem from="1676072905888" duration="78000" />
       <workItem from="1676095682484" duration="590000" />
-      <workItem from="1676125633559" duration="36836000" />
+      <workItem from="1676125633559" duration="43256000" />
     </task>
     <task id="LOCAL-00001" summary="mirza Test">
       <created>1674122532859</created>
@@ -161,7 +167,21 @@
       <option name="project" value="LOCAL" />
       <updated>1676047966727</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add some feature for manager...">
+      <created>1676165159908</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676165159908</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add some feature for manager...">
+      <created>1676165171572</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676165171572</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,8 +216,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java</url>
-          <line>196</line>
-          <option name="timeStamp" value="21" />
+          <line>277</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java</url>
+          <line>292</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java</url>
+          <line>310</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Main/src/main/java/UI/LoginForm.java</url>
+          <line>311</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/CoreBanking/src/main/java/CoreBankingManager/CommandSQL.java</url>
+          <line>227</line>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

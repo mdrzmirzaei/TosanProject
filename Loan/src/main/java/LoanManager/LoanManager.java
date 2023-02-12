@@ -16,18 +16,18 @@ public class LoanManager {
         }
     }
 
-    public int getLoanRate() {
-        int loanRate = 0;
+    public Double getLoanRate() {
+        Double loanRate = 0d;
         try {
             cmd.cachedRowSet.setCommand("select loanRate from loan");
             cmd.cachedRowSet.execute();
             while (cmd.cachedRowSet.next()) {
-                loanRate = cmd.cachedRowSet.getInt("loanRate");
+                loanRate = cmd.cachedRowSet.getDouble("loanRate");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
-            return 0;
+            return 0d;
         }
         return loanRate;
     }

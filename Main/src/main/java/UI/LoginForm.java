@@ -4,7 +4,10 @@ import CoreBankingManager.BankAccountManager;
 import CoreBankingManager.CommandSQL;
 import CoreBankingManager.CustomerManager;
 import CoreBankingManager.UserLogin;
+import Entities.BankAccount;
 import Entities.Customer;
+import LoanManager.*;
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -31,9 +34,7 @@ public class LoginForm extends JFrame {
     private JButton createCustomer;
     private JButton editcusotmer;
     private JButton deleteCustomer;
-    private JButton createBankAccount;
     private JButton ShowCustomers;
-    private JButton deposit;
     private JButton CreateLoan;
     private JButton Showinstallments;
     private JButton giveInstallments;
@@ -47,8 +48,6 @@ public class LoginForm extends JFrame {
     private JLabel customerFamily;
     private JLabel customerAddress;
     private JButton create_customer;
-    private JPanel statusBar;
-    private JButton backtoMain;
     private JPanel Editc;
     private JButton editc;
     private JTextField editcname;
@@ -74,6 +73,23 @@ public class LoginForm extends JFrame {
     private JTextField baba_UI;
     private JButton BT_createBA;
     private JComboBox currncy;
+    private JLabel cname_depo;
+    private JLabel idbank_accout_deposit;
+    private JLabel AmountDeposit;
+    private JTextField UI_idCustomer;
+    private JTextField UI_bankAccount;
+    private JTextField UI_Amount;
+    private JButton deposittobankaccont;
+    private JPanel deposittocustomer;
+    private JTabbedPane Loan;
+    private JPanel createLoan;
+    private JPanel showinstallments;
+    private JPanel giveainstallments;
+    private JButton givetoloan;
+    private JTextField Loanidcustomer;
+    private JTextField loanAmount;
+    private JTextField Loanmonths;
+    private JTable table2;
     private char kou;
 
 
@@ -108,6 +124,7 @@ public class LoginForm extends JFrame {
         searchcustomer.setBackground(Color.DARK_GRAY);
         Editc.setBackground(Color.DARK_GRAY);
         UICreateBankAccount.setBackground(Color.DARK_GRAY);
+        deposittocustomer.setBackground(Color.DARK_GRAY);
 
         currncy.addItem("ریال");
         currncy.addItem("دلار");
@@ -138,31 +155,6 @@ public class LoginForm extends JFrame {
                 JOptionPane.showMessageDialog(Main, "نام کاربری یا رمز عبورتان اشتباه است");
                 userName.setText("");
                 password.setText("");
-            }
-        });
-        backtoMain.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (kou == 'E') {
-                    for (Component c : Main.getComponents()
-                    ) {
-                        if (c instanceof JPanel) {
-                            c.setBackground(Color.DARK_GRAY);
-                            c.setVisible(Boolean.FALSE);
-                        }
-                    }
-                    Employee.setVisible(true);
-                }
-
-                if (kou == 'M')
-                    for (Component c : Main.getComponents()
-                    ) {
-                        if (c instanceof JPanel) {
-                            c.setBackground(Color.DARK_GRAY);
-                            c.setVisible(Boolean.FALSE);
-                        }
-                    }
-                Manager.setVisible(true);
             }
         });
         create_customer.addActionListener(new ActionListener() {
@@ -204,6 +196,9 @@ public class LoginForm extends JFrame {
 
                     UIcustomercreateba.setText(customerSwing.getCustomer_name() + "   " + customerSwing.getCustomer_family());
 
+                    UI_idCustomer.setText(String.valueOf(customerSwing.getIdCustomer()));
+
+                    Loanidcustomer.setText(String.valueOf(customerSwing.getIdCustomer()));
 
                 } else if (customerSwing == null) {
                     JOptionPane.showMessageDialog(Customer, "متاسفانه فرد مورد نظر پیدا نشد");
@@ -272,7 +267,55 @@ public class LoginForm extends JFrame {
                     cur = '$';
 
                 if (customerManager.createCustomerAccount(search_idcustomer.getText(), cur, baba_UI.getText().toString()))
-                    JOptionPane.showMessageDialog(UICreateBankAccount,"حساب مشتری با موفقیت ایجاد گردید");
+                    JOptionPane.showMessageDialog(UICreateBankAccount, "حساب مشتری با موفقیت ایجاد گردید");
+
+            }
+        });
+        deposittobankaccont.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (bankAccountManager.deposit(UI_idCustomer.getText(), UI_bankAccount.getText(), UI_Amount.getText()))
+                    JOptionPane.showMessageDialog(BankAccount, "واریز مبلغ انجام گردید");
+            }
+        });
+        givetoloan.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoanManager loanManager = new LoanManager();
+                if (loanManager.loanRequest(Double.valueOf(loanAmount.getText()), Integer.valueOf(Loanmonths.getText()))) {
+                    double rate = loanManager.getLoanRate();
+
+                    JOptionPane.showMessageDialog(Loan, "مشتری واجد دریافت وام می باشد" + "درصد محاسبه سود وام نیز " + rate + "   می باشد");
+
+                    if (table2.getRowCount() == 0) {
+                        DefaultTableModel model = new DefaultTableModel();
+                        ArrayList<Entities.BankAccount> bankAccountArrayList = cmd.select_bank_accounts("bank_account_customer_id","=",Loanidcustomer.getText());
+
+
+                        Object[] ColumnsName = new Object[2];
+                        ColumnsName[0] = "شماره حساب";
+                        ColumnsName[1] = "موجودی";
+                        model.setColumnIdentifiers(ColumnsName);
+                        Object[] rowData = new Object[4];
+
+                        for (int i = 0; i < bankAccountArrayList.size(); i++) {
+
+                            rowData[0] = bankAccountArrayList.get(i).getIdbank_acocunt();
+                            rowData[1] = bankAccountArrayList.get(i).getBank_account_balance();
+                            model.addRow(rowData);
+                        }
+                        table2.setModel(model);
+                    }
+
+                    InstallmentCalculate installmentCalculate= new InstallmentCalculate();
+                    installmentCalculate.fillInstallmentsData(Loanidcustomer.getText());
+
+
+
+                } else
+                    JOptionPane.showMessageDialog(Loan, "مشتری واجد دریافت وام نمی باشد");
+
 
             }
         });
